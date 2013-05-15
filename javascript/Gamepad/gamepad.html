@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<title>Muzzley Gamepad</title>
+		
+		<link rel="stylesheet" href="gamepad.css">
+		
+		<script src='compass.js'></script>
+		<script src="http://cdn.geo.muzzley.com/libraries/js/muzzley-client-0.1.0.min.js"></script>
+		
+	</head>
+	<body>
+		<textarea id="text1" rows="1" cols="71,5" ></textarea>
+		<div id="qrCode"><img id="qrCodeContainer"></div>
+		<canvas id="compass" width="200" height="200"></canvas>
+		<img class="icon" id="icon" src="muzzley.png">
+		<textarea id="logarea" onmouseout="hideJSONBox();" onmouseover="displayJSONBox(); return false;" rows="1" cols="71,5" ></textarea>
+		<textarea id="LightBox" rows="5" cols="71,5" style="display: none;"></textarea>
+		<script>
+
+			var logArea = document.getElementById('logarea');
+			var LightBox = document.getElementById('LightBox'); LightBox.value = '';
+			var textArea = document.getElementById('text1');
+			textArea.value = 'Scan to start interacting';
+			//muzzley icon
+			var mIcon= document.getElementById("icon");
+			mIcon.style.left = 350+'px';
+			mIcon.style.top = 100+'px';
+			var keyPressed='';
+			var myVar;
+			//load definitions to elements draw
+			init();
+
+			var myAppToken = 'bcda9d7c69763a98';
+
+		    muzzley.on('error', function(err) {
+		        //console.log("Error: " + err); 
+		        logText("Log | Error: " + err);	
+		    });
+
+		    muzzley.connectApp(myAppToken, function(err, activity) {
+		        if (err){
+		        	logText("Log | Connect error: " + err);
+		        	return //console.log("Connect error: " + err);
+		        }  	
+
+		        // Usually you'll want to show this Activity's QR code image
+		        // or its id so that muzzley users can join.
+		        // They are in the `activity.qrCodeUrl` and `activity.activityId`
+		        // properties respectively.
+		        //console.log(activity); 
+		        logText('Log | Activty Created - '+activity.activityId);
+		       
+		        var img = document.getElementById('qrCodeContainer');
+		        img.src = activity.qrCodeUrl; 				
+
+		        activity.on('participantQuit', function(participant) {
+		            // A participant quit
+		            logText('Log | Participant Quit - id:' + participant.id);
+		        });
+
+		        activity.on('participantJoin', function(participant) {
+		        	logText('Log | Participant Join - id:' + participant.id + ' name: ' + participant.name);
+					img.style.visibility = textArea.style.visibility = 'hidden';
+					mIcon.style.opacity = document.getElementById("compass").style.opacity = 1;
+					// init compass
+					
+		            // A participant joined. Tell him to transform into a gamepad.
+		            participant.changeWidget("gamepad",{sampling: 0.3}, function (err) {
+		                if (err){
+		                	logText('Log | Change Widget Error: ' + err);
+		                	return //console.log('changeWidget error: ' + err );
+		                }else{
+		                	logText('Log | Widget Changed to gamepad');
+		                }
+		            });
+
+		            participant.on('action', function (action) {
+		                // The action object represents the participant's interaction.
+		                // In this case it might be "button 'a' was pressed".
+		                //console.log(action); 
+		                logText('Log | Action received - ' +JSON.stringify(action));
+		                LightBox.value = JSON.stringify(action, null, 4);
+						if(action.v){
+							
+							degrees = action.v;
+							if(degrees >= 0 && degrees <= 360){
+								//Rotate the pointer according the angle value received.
+								rotate();
+							}
+							if(action.v == 'a' || action.v == 'b' || action.v == 'c' || action.v == 'd'){
+								//Move muzzley icon on x axis if the pressed key was 'a' or 'c'. 
+								//And on the y axis if the pressed key was 'b' or 'd'.
+								keyPressed = action.v;
+								if(action.e == 'press'){
+									myVar = window.setInterval(moveIcon, 100);
+								}else{
+									clearInterval(myVar); document.getElementById("compass").style.opacity = 1;
+								}
+								//moveIcon(action.v)
+							}
+							
+						}
+		            });
+
+		            participant.on('quit', function (action) {
+		                // You can also check for participant quit events
+		                // directly in each participant object.
+		                
+		                img.style.visibility = textArea.style.visibility = 'visible';
+		                mIcon.style.opacity = document.getElementById("compass").style.opacity = 0;
+						mIcon.style.left = 350+'px';
+						mIcon.style.top = 100+'px';
+						logText('Log | Participant Quit - id:' + participant.id);
+		            });
+
+		        });
+		    });
+			
+			/**
+			* Move Muzzley icon to the left, right, top and bottom
+			*/
+			function moveIcon(){
+				var lft = parseInt(mIcon.style.left);
+				var top = parseInt(mIcon.style.top);
+				
+				switch(keyPressed){
+					case 'a':
+						lft = lft - 5;
+						break;
+					case 'b':
+						top = top + 5;
+						break;
+					case 'c':
+						lft = lft + 5;
+						break;
+					case 'd':
+						top = top - 5;
+						break;
+				}
+				top = top;
+				lft = lft;
+
+				if(lft > (600-mIcon.width) || lft < 0 ){
+					mIcon.style.left = mIcon.style.left;
+				}else{
+					mIcon.style.left = lft+'px';
+				}
+				
+				if(top > (300-mIcon.height) || top < 0 ){
+					mIcon.style.top = mIcon.style.top;
+				}else{
+					mIcon.style.top = top+'px';
+				}
+				document.getElementById("compass").style.opacity = 0;
+			}
+
+			/* Display lightBox with formated JSON message, when the action message is received */
+			function displayJSONBox(){	
+				if(document.getElementById("LightBox").style.display=="none" && LightBox.value.length != 0) {
+					document.getElementById("LightBox").style.display="block";
+				} 
+			}
+
+			/* Hide lightBox with formated JSON message */
+			function hideJSONBox(){
+				if(document.getElementById("LightBox").style.display=="block"){
+					document.getElementById("LightBox").style.display="none";
+				}
+			}
+			/* Write log message on log textarea*/
+			function logText(text){
+				LightBox.value = '';
+				logArea.value = text;
+			}
+		</script>
+	</body>
+</html>

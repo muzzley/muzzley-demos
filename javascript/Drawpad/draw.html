@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<title>Muzzley Drawing</title>
+		
+		<link rel="stylesheet" href="drawpad.css">
+		
+		<script type="text/javascript" src="jquery.js"></script>
+		<script src="http://cdn.geo.muzzley.com/libraries/js/muzzley-client-0.1.0.min.js"></script>
+
+	</head>
+	<body>
+		
+		<textarea id="text1" rows="1" cols="71,5" readonly></textarea>
+		<div id="qrCode"><img id="qrCodeContainer"></div>
+		<div id="canvasDiv"></div>
+		<textarea id="logarea" onmouseout="hideJSONBox();" onmouseover="displayJSONBox(); return false;" rows="2" cols="71,5" ></textarea>
+ 		<textarea id="text2" rows="1" cols="71,5" ></textarea>
+ 		<textarea id="LightBox" rows="8" cols="71,5" style="display: none;"></textarea>
+		<script>
+			//texts area
+			var logArea = document.getElementById('logarea');
+			var LightBox = document.getElementById('LightBox'); LightBox.value = '';
+			var textArea = document.getElementById('text1');
+			textArea.value = 'Scan to start interacting'; 
+			var textArea2 = document.getElementById('text2');
+			textArea2.value = 'Let your inner picasso free'; 
+
+			var myAppToken = 'bcda9d7c69763a98';
+
+		    muzzley.on('error', function(err) {
+		        //console.log("Error: " + err); 
+				logText("Log | Error: " + err);
+		    });
+
+		    muzzley.connectApp(myAppToken, function(err, activity) {
+		        if (err){
+		        	logText("Log | Connect error: " + err); 
+		        	return //console.log("Connect error: " + err);
+		        } 
+
+		        // Usually you'll want to show this Activity's QR code image
+		        // or its id so that muzzley users can join.
+		        // They are in the `activity.qrCodeUrl` and `activity.activityId`
+		        // properties respectively.
+		       // console.log(activity); 
+		       logText('Log | Activty Created - '+activity.activityId);
+		       
+		        var img = document.getElementById('qrCodeContainer');
+		        img.src = activity.qrCodeUrl; 				
+
+		        activity.on('participantQuit', function(participant) {
+		            // A participant quit
+		            logText('Log | Participant Quit - id:' + participant.id);
+		        });
+
+		        activity.on('participantJoin', function(participant) {
+		        	logText('Log | Participant Join - id:' + participant.id + ' name: ' + participant.name);
+					document.getElementById("qrCodeContainer").style.visibility = document.getElementById("text1").style.visibility = 'hidden';
+					textArea2.style.opacity = 1;
+		            // A participant joined. Tell him to transform into a gamepad.
+		            participant.changeWidget("drawpad",{sampling: 0.3}, function (err) {
+		                if (err){
+		                	logText('Log | Change Widget Error: ' + err);
+		                	return //console.log('changeWidget error: ' + err );
+		                } else{
+		                	logText('Log | Widget Changed to gamepad');
+		                }
+		            });
+
+		            participant.on('action', function (action) {
+		                // The action object represents the participant's interaction.
+		               
+		                //console.log(action);
+		                logText('Log | ' +JSON.stringify(action));
+		                LightBox.value = JSON.stringify(action, null, 4);
+						if(action.v){
+							//Draw on canvas the points that the participant sent. 
+							//The x and y values was on the action.v object (action.v.x, action.v.y)
+							draw(action);							
+						}
+		            });
+
+		            participant.on('quit', function (action) {
+		                // You can also check for participant quit events
+		                // directly in each participant object.
+		                document.getElementById("qrCodeContainer").style.visibility = document.getElementById("text1").style.visibility = 'visible';
+		                logText('Log | Participant Quit - id:' + participant.id);
+		                clearCanvas();
+		            });
+
+		        });
+		    });
+			
+			//draw canvas
+			var canvasWidth = 600;
+			var canvasHeight = 250;
+			var canvasDiv = document.getElementById('canvasDiv');
+			canvas = document.createElement('canvas');
+			canvas.setAttribute('width', canvasWidth);
+			canvas.setAttribute('height', canvasHeight);
+			canvas.setAttribute('id', 'canvas');
+			canvasDiv.appendChild(canvas);
+            
+
+			if(typeof G_vmlCanvasManager != 'undefined') {
+				canvas = G_vmlCanvasManager.initElement(canvas);
+			}
+			context = canvas.getContext("2d");
+
+			var clickX = new Array();
+			var clickY = new Array();
+			var clickDrag = new Array();
+			var paint;
+			
+			/**
+			* Read the object received, and draw according the type of acion. 
+			* @param obg
+			*/
+			function draw(obj){
+				//transform the absolute coordinates on relatve coordinates.
+				var x = Math.round(canvasWidth*(obj.v.x));
+				var y = Math.round(canvasHeight*(obj.v.y));  
+				
+				if(obj.e=="touchBegin"){      
+					         
+					paint = true;
+					addClick(x , y );
+					redraw();
+			    }else if(obj.e=="touchMove"){
+			       if(paint){
+						addClick(x , y, true);
+						redraw();
+				 	}
+			    }else if(obj.e=="touchEnd"){
+			      	paint = false;
+			    }
+			}
+
+			/**
+			* Adds a point to the drawing array.
+			* @param x
+			* @param y
+			* @param dragging
+			*/
+			function addClick(x, y, dragging)
+			{
+				clickX.push(x);
+				clickY.push(y);
+				clickDrag.push(dragging);
+			}
+
+			/**
+			* Redraws the canvas.
+			*/
+			function redraw(){
+				canvas.width = canvas.width; // Clears the canvas
+				
+				context.strokeStyle = "#e10d24";
+				context.lineJoin = "round";
+				context.lineWidth = 5;
+						
+				for(var i=0; i < clickX.length; i++)
+				{   
+					context.beginPath();
+					if(clickDrag[i] && i){
+						context.moveTo(clickX[i-1], clickY[i-1]);
+					 }else{
+						 context.moveTo(clickX[i]-1, clickY[i]);
+					 }
+					 context.lineTo(clickX[i], clickY[i]);
+					 context.closePath();
+					 context.stroke();
+				}
+			}
+
+			/**
+			* Clears the canvas.
+			*/
+			function clearCanvas()
+			{
+				context.fillStyle = '#ffffff'; // Work around for Chrome
+				context.fillRect(0, 0, canvasWidth, canvasHeight); // Fill in the canvas with white
+				canvas.width = canvas.width; // clears the canvas 
+				textArea2.style.opacity = 0;
+			}
+
+			/* Display lightBox with formated JSON message, when the action message is received */
+			function displayJSONBox(){	
+				if(document.getElementById("LightBox").style.display=="none" && LightBox.value.length != 0) {
+					document.getElementById("LightBox").style.display="block";
+				} 
+			}
+
+			/* Hide lightBox with formated JSON message */
+			function hideJSONBox(){
+				if(document.getElementById("LightBox").style.display=="block"){
+					document.getElementById("LightBox").style.display="none";
+				}
+			}
+			/* Write log message on log textarea*/
+			function logText(text){
+				LightBox.value = '';
+				logArea.value = text;
+			}
+		</script>
+	</body>
+</html>

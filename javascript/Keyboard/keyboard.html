@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<title>Muzzley Keyboard</title>
+		<link rel="stylesheet" href="keyboard.css">
+		<script src="http://cdn.geo.muzzley.com/libraries/js/muzzley-client-0.1.0.min.js"></script>
+	</head>
+	<body >
+		
+		<textarea id="text1" class="textI" rows="1" cols="25" ></textarea>
+		
+		<div id="qrCode"><img id="qrCodeContainer"></div>
+		<textarea id="logarea" class="log" onmouseout="hideJSONBox();" onmouseover="displayJSONBox(); return false;" rows="1" cols="71,5" ></textarea>
+		<form action="" method="" name="form" >
+		   <textarea name="textarea" rows="10" cols="60" wrap="wrap" style="text-align: center; resize :none;"></textarea>
+		</form>
+		<textarea id="text2" rows="1" cols="60" ></textarea>
+		<textarea id="LightBox" rows="5" cols="71,5" style="display: none;"></textarea>
+		<script>
+			var textArea = document.getElementById('text1');
+			textArea.value = 'Scan to start interacting';
+            var textArea2 = document.getElementById('text2');
+			textArea2.value = "You're a poet and we know it.\nLet your art flow from your device into here";
+			var LightBox = document.getElementById('LightBox'); LightBox.value = '';
+			var logArea = document.getElementById('logarea');
+			var firsTime = true;
+			document.form.textarea.value = '';
+
+
+		    clearText();
+
+	    	firsTime = true;
+	    	document.form.textarea.value = ''; 
+	    	document.form.style.opacity = textArea2.style.opacity = 0;
+
+			var myAppToken = 'bcda9d7c69763a98';
+
+		    muzzley.on('error', function(err) {
+		        //console.log("Error: " + err); 
+		        logText("Log | Error: " + err);
+		    });
+
+		    muzzley.connectApp(myAppToken, function(err, activity) {
+		        if (err){
+		        	logText("Log | Connect error: " + err); 
+		        	return //console.log("Connect error: " + err);
+		        } 
+
+		        // Usually you'll want to show this Activity's QR code image
+		        // or its id so that muzzley users can join.
+		        // They are in the `activity.qrCodeUrl` and `activity.activityId`
+		        // properties respectively.
+		        //console.log(activity); 
+		        logText('Log | Activty Created - '+activity.activityId);
+		        document.getElementById("qrCode").style.opacity = document.getElementById("text1").style.opacity = 1;
+		        var img = document.getElementById('qrCodeContainer');
+		        img.src = activity.qrCodeUrl; 				
+		        
+		        activity.on('participantQuit', function(participant) {
+		            // A participant quit
+		            logText('Log | Participant Quit - id:' + participant.id);
+		        });
+
+		        activity.on('participantJoin', function(participant) {
+		        	logText('Log | Participant Join - id:' + participant.id + ' name: ' + participant.name);
+					document.getElementById("qrCode").style.opacity = document.getElementById("text1").style.opacity = 0;
+					document.form.style.opacity = textArea2.style.opacity = 1;
+					
+
+		            // A participant joined. Tell him to transform into a gamepad.
+		            participant.changeWidget("keyboard",{sampling: 0.3}, function (err) {
+		                if (err){
+		                	logText('Log | Change Widget Error: ' + err);
+		                	return //console.log('changeWidget error: ' + err );
+		                }else{
+		                	logText('Log | Widget Changed to gamepad');
+		                }
+		            });
+
+		            participant.on('action', function (action) {
+		                // The action object represents the participant's interaction.
+		                // In this case it might be "button 'a' was pressed".
+		                //console.log(action);
+		                logText('Log | ' +JSON.stringify(action));
+		                LightBox.value = JSON.stringify(action, null, 4);
+						if(action.v){
+							// Write on the screen the text that the participant sent. 
+							// The text is the 'v' parameter from the action object.
+							writeText(action.v);							
+						}
+		            });
+
+		            participant.on('quit', function (action) {
+		                // You can also check for participant quit events
+		                // directly in each participant object.
+		                document.getElementById("qrCode").style.opacity = document.getElementById("text1").style.opacity = 1;
+		                logText('Log | Participant Quit - id:' + participant.id);
+		                firsTime = true;
+		                document.form.textarea.value = '';
+		                document.form.style.opacity = textArea2.style.opacity = 0;
+		            });
+
+		        });
+		    });
+
+
+			function writeText(text){
+				
+				if(firsTime){
+					document.form.textarea.value = text;					
+				}else{
+					document.form.textarea.value = document.form.textarea.value += text;
+				}
+				firsTime = false;
+				
+			}
+
+			function clearText(){
+				textArea2.style.opacity = 0;
+				document.form.style.opacity = 0;
+			}
+			
+			/* Display lightBox with formated JSON message, when the action message is received */
+			function displayJSONBox(){
+				console.log("akii "+LightBox.value.length);
+				if(document.getElementById("LightBox").style.display=="none" && LightBox.value.length != 0) {
+					console.log("akii 1");
+					document.getElementById("LightBox").style.display="block";
+				} 
+			}
+
+			/* Hide lightBox with formated JSON message */
+			function hideJSONBox(){
+				
+				if(document.getElementById("LightBox").style.display=="block"){
+					
+					document.getElementById("LightBox").style.display="none";
+				}
+			}
+			/* Write log message on log textarea*/
+			function logText(text){
+				LightBox.value = '';
+				logArea.value = text;
+			}
+		</script>
+	</body>
+</html>

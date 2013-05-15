@@ -1,0 +1,65 @@
+body {
+	  background-image:url('background.png');
+	  background-repeat:no-repeat;
+	  width: 600;
+	  height: 300;
+}
+
+div.text1
+{
+	font-family: serif;
+	color: #000000;
+
+}			
+img.icon{
+	opacity: 0;
+	position: absolute;
+}
+canvas{
+	opacity: 0;
+	position: absolute;
+	left: 25px;
+	top: 30px;
+}
+#logarea{
+    left:3px;
+    top:260px;
+    position: absolute;
+    font-family: : serif;
+    text-align: left;
+    color: #000000;
+    border-width: 2px;
+    background-color: #ffffff; 
+    resize :none;
+    border-color: #cd1418;
+}
+
+#text1{
+    left: 190px;
+    top:10px;
+    position: absolute;
+    font-family: : serif;
+    text-align: left;
+    color: #000000;
+    background-color: transparent; 
+    border: hidden;
+    resize :none;
+}
+#qrCode{
+  margin-left:170px;
+  margin-top: 10px;
+  width: 200px;
+  height: 200px;
+}
+#LightBox{
+  position: absolute;
+  left: 3px;
+  top: 160px;
+  font-family: : serif;
+  text-align: left;
+  color: #cd1418;
+  border-width: 2px;
+  border-color: #cd1418;
+  background-color: #ffffff; 
+  resize :none;
+}

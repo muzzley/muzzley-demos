@@ -1,0 +1,81 @@
+body {
+  background-repeat:no-repeat;
+  background-image:url('background.png');
+}
+div.text1
+{
+	font-family: georgia;
+	color: #000000;
+}
+form{
+	  left:50px;
+  	top:60px;
+  	position: absolute;
+  	opacity: 0;
+  	color: #e10d24; 
+  	font-family: georgia;
+  	text-align: center;
+  	background-color: transparent; 
+}
+#logarea{
+    left:3px;
+    top:260px;
+    position: absolute;
+    font-family: : serif;
+    text-align: left;
+    color: #000000;
+    border-color: #cd1418;
+    border-width: 2px;
+    background-color: #ffffff; 
+    resize :none;
+}
+
+#text2{
+    left: 50px;
+    top:10px;
+    position: absolute;
+    font-family: : serif;
+    text-align: left;
+    color: #000000;
+    background-color: transparent; 
+    border: hidden;
+    resize :none;
+    opacity: 0;
+}
+#text1{
+    left: 190px;
+    top:10px;
+    position: absolute;
+    font-family: : serif;
+    text-align: left;
+    color: #000000;
+    background-color: transparent; 
+    border: hidden;
+    resize :none;
+    opacity: 0;
+}
+#qrCode{
+  margin-left:170px;
+  margin-top: 10px;
+  width: 200px;
+  height: 200px;
+  opacity: 0;
+}
+#close{
+  position: absolute;
+  margin-left:565px;
+  margin-top: -5px;
+  border-style: none;;
+}
+#LightBox{
+  position: absolute;
+  left: 3px;
+  top: 160px;
+  font-family: : serif;
+  text-align: left;
+  color: #cd1418;
+  border-width: 2px;
+  border-color: #cd1418;
+  background-color: #ffffff; 
+  resize :none;
+}
