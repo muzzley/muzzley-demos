@@ -59,7 +59,7 @@ function imgLoaded() {
 	draw();
 }
 
-function init() {
+function init(image1, image2) {
 	// Grab the compass element
 	var canvas = document.getElementById('compass');
 
@@ -69,11 +69,11 @@ function init() {
 
 		// Load the needle image
 		needle = new Image();
-		needle.src = 'needle.png';
+		needle.src = image1;
 
 		// Load the compass image
 		img = new Image();
-		img.src = 'angles.png';
+		img.src = image2;
 		img.onload = imgLoaded;
 
 	} else {
@@ -82,38 +82,3 @@ function init() {
 
 	
 }
-
-/*function moveIcon(letra){
-	var lft = parseInt(mIcon.style.left);
-	var top = parseInt(mIcon.style.top);
-	
-	switch(letra){
-		case 'a':
-			lft = lft - 10;
-			break;
-		case 'b':
-			top = top + 10;
-			break;
-		case 'c':
-			lft = lft + 10;
-			break;
-		case 'd':
-			top = top - 10;
-			break;
-	}
-	top = top;
-	lft = lft;
-
-	if(lft > (600-mIcon.width) || lft < 0 ){
-		mIcon.style.left = mIcon.style.left;
-	}else{
-		mIcon.style.left = lft+'px';
-	}
-	
-	if(top > (300-mIcon.height) || top < 0 ){
-		mIcon.style.top = mIcon.style.top;
-	}else{
-		mIcon.style.top = top+'px';
-	}
-	
-}*/
