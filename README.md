@@ -32,7 +32,7 @@ In the Drawpad demo you can draw on your phone and see the result it in your app
 
 ## Gamepad
 
-[http://www.muzzley.com/documentation/widgets/drawpad.html](http://www.muzzley.com/documentation/widgets/gamepad.html)
+[http://www.muzzley.com/documentation/widgets/gamepad.html](http://www.muzzley.com/documentation/widgets/gamepad.html)
 
 ![](https://github.com/muzzley/muzzley-demos/blob/master/assets/gamepad.png?raw=true)
 
