@@ -52,7 +52,7 @@ The Keyboard demo shows how to use muzzley as a remote virtual keyboard.
 
 ![](https://github.com/muzzley/muzzley-demos/blob/master/assets/swipe.png?raw=true)
 
-With the Swipe Navigator demo you can swipe on your phone to navigate a picture gallery on your computer.
+With the Swipe Navigator demo you can swipe on your phone to navigate a picutre gallery on your computer.
 
 ## Switch
 
@@ -61,7 +61,6 @@ With the Swipe Navigator demo you can swipe on your phone to navigate a picture 
 ![](https://github.com/muzzley/muzzley-demos/blob/master/assets/switch.png?raw=true)
 
 The Switch demo allows you to switch a virtual lamp on and off.
-
 
 ----
 
