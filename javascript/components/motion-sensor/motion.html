@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="Tânia Rocha" content="Muzzley" />
+    <meta name="copyright" content="Muzzley" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <title>Muzzley Motion Component</title>
+    <link rel="stylesheet" href="motion.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="js/utils.js"></script>
+    <script src="http://cdn.geo.muzzley.com/libraries/js/muzzley-client-0.3.0.min.js"></script>
+  </head>
+  <body>
+    
+    <div id="text1" class="all"></div>
+    <div id="qrCode" class="all"><img id="qrCodeContainer"></div>
+    <div id="text2" class="all"></div>
+   
+    <div id="radioBtns">
+      <input id="rdi1" type="radio" name="type" value="roll" defaultChecked="false" onchange="sentValues();">roll
+      <input id="rdi2" type="radio" name="type" value="pitch" defaultChecked="false"  onchange="sentValues();">pitch
+      <input id="rdi3" type="radio" name="type" value="yaw" defaultChecked="false" onchange="sentValues();">yaw
+    </div>
+    <div id="container" class="container">
+      <div id="cube" class="show-front">
+          <figure class="front">1</figure>
+          <figure class="back">2</figure>
+          <figure class="right">3</figure>
+          <figure class="left">4</figure>
+          <figure class="top">5</figure>
+          <figure class="bottom">6</figure>
+      </div>
+    </div>
+     
+    <div id="logarea" class="all" onmouseout="hideJSONBox();" onmouseover="displayJSONBox(); return false;"></div>
+    <textarea id="LightBox" rows="5" cols="71,5" style="display: none;"></textarea>
+    <script>
+
+        var textArea = document.getElementById('text1');
+        textArea.innerHTML = 'Scan to start interacting';
+        var logArea = document.getElementById('logarea');
+        var img = document.getElementById('qrCodeContainer');
+        var textArea2 = document.getElementById('text2');
+        textArea2.innerHTML = 'Choose your movement';
+        var LightBox = document.getElementById('LightBox'); LightBox.value = '';
+        var myAppToken = 'bcda9d7c69763a98';
+        var actionStr;
+        var cubeContainer = document.getElementById('container');
+        var radio1  = document.getElementById('rdi1');
+        var radio2  = document.getElementById('rdi2');
+        var radio3  = document.getElementById('rdi3');
+        var myParticipant;
+
+        muzzley.on('error', function(err) {
+            //console.log("Error: " + err); 
+            logText("Log | Error: " + err);
+            reset();
+        });
+
+        muzzley.connectApp(myAppToken, function(err, activity) {
+            if (err){
+              logText("Log | Connect error: " + err); 
+              return //console.log("Connect error: " + err);
+            } 
+
+            // Usually you'll want to show this Activity's QR code image
+            // or its id so that muzzley users can join.
+            // They are in the `activity.qrCodeUrl` and `activity.activityId`
+            // properties respectively.
+            //console.log(activity); 
+            logText('Log | Activty Created - '+activity.activityId);
+           
+            img.src = activity.qrCodeUrl;         
+
+            activity.on('participantQuit', function(participant) {
+                // A participant quit
+                logText('Log | Participant Quit - id:' + participant.id);
+            });
+
+            activity.on('participantJoin', function(participant) {
+              logText('Log | Participant Join - id:' + participant.id + ' name: ' + participant.name);
+              img.style.opacity = textArea.style.opacity = 0;
+              textArea2.style.opacity = document.getElementById('radioBtns').style.opacity = 1;
+              radio1.checked = radio2.checked = radio3.checked = false;
+              myParticipant = participant;
+
+                // A participant joined. Tell him to transform into a gamepad.
+
+                participant.on('action', function (action) {
+                    // The action object represents the participant's interaction.
+                    
+                    logText('Log | ' +JSON.stringify(action));
+                    if(action.c == "deviceMotion"){
+                       cubeTranform(action);
+                    }
+                    LightBox.value = JSON.stringify(action, null, 4);
+            
+                });
+
+                participant.on('quit', function (action) {
+                    // You can also check for participant quit events
+                    // directly in each participant object.
+                    logText('Log | Participant Quit - id:' + participant.id);
+                    reset();
+                });
+
+            });
+        });
+      
+      function sentValues(){
+
+        cubeContainer.style.opacity = 0;
+          myParticipant.changeWidget(
+          {
+            widget: 'switch',
+                components: [
+                {
+                  c: 'deviceMotion',
+                  p: {
+                    fireType: 'onProximity',
+                    step: 10,
+                    roll: radio1.checked,
+                    yaw:radio3.checked,
+                    pitch:radio2.checked
+                  }
+                }]
+          }, 
+          function (err) {
+            if (err){
+              logText('Log | Change Widget Error: ' + err);
+              return //console.log('changeWidget error: ' + err );
+            }else{
+              logText('Log | Widget changed / DeviceMotion component activated'); 
+              textArea2.innerHTML = 'Move your phone';
+              cubeContainer.style.opacity = 1;
+              
+            }
+          });
+      }
+
+      /* Display lightBox with formated JSON message, when the action message is received */
+      function displayJSONBox(){        
+        if(document.getElementById("LightBox").style.display=="none" && LightBox.value.length != 0) {
+          document.getElementById("LightBox").style.display="block";
+        } 
+      }
+
+      /* Hide lightBox with formated JSON message */
+      function hideJSONBox(){
+        if(document.getElementById("LightBox").style.display=="block"){
+          document.getElementById("LightBox").style.display="none";
+        }
+      }
+      /* Write log message on log textarea*/
+      function logText(text){
+        LightBox.value = '';
+        logArea.innerHTML = text;
+      }
+
+      function reset(){
+        img.style.opacity = textArea.style.opacity = 1;
+        radio1.checked = radio2.checked = radio3.checked = false;
+        textArea2.style.opacity = document.getElementById('radioBtns').style.opacity = cubeContainer.style.opacity = 0;
+        textArea2.innerHTML = 'Choose your movement';
+      }
+
+      var cube = document.getElementById('cube');
+      
+      function cubeTranform(action){
+        
+        var yValue;
+        var xValue;
+        var zValue;
+
+            if(action.v.roll){
+              xValue = action.v.roll;
+              cube.style.webkitTransform = "translateZ( -100px ) rotateX( "+xValue+"deg )";
+              cube.style.MozTransform = "translateZ( -100px ) rotateX( "+xValue+"deg )";
+              cube.style.oTransform = "translateZ( -100px ) rotateX( "+xValue+"deg )";
+              cube.style.transform = "translateZ( -100px ) rotateX( "+xValue+"ddeg )";
+            }
+            else if(action.v.pitch){
+                zValue = action.v.pitch;
+                cube.style.webkitTransform = "translateZ( -100px ) rotateZ( "+zValue+"deg )";
+                cube.style.MozTransform = "translateZ( -100px ) rotateZ( "+zValue+"deg )";
+                cube.style.oTransform = "translateZ( -100px ) rotateZ( "+zValue+"deg )";
+                cube.style.transform = "translateZ( -100px ) rotateZ( "+zValue+"ddeg )";
+            }
+            else if(action.v.yaw){
+              yValue = action.v.yaw;
+              cube.style.webkitTransform = "translateZ( -100px ) rotateY( "+yValue+"deg )";
+              cube.style.MozTransform = "translateZ( -100px ) rotateY( "+yValue+"deg )";
+              cube.style.oTransform = "translateZ( -100px ) rotateY( "+yValue+"deg )";
+              cube.style.transform = "translateZ( -100px ) rotateY( "+yValue+"ddeg )";
+            }
+      }
+      
+    </script>
+  </body>
+</html>

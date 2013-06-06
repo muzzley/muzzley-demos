@@ -1,77 +1,69 @@
 body {
-  background-repeat:no-repeat;
   background-image:url('assets/background.png');
+  background-repeat:no-repeat;
+  width: 600;
+  height: 300;
 }
-div.text1
-{
-	font-family: georgia;
-	color: #000000;
+
+.all{
+  width: 600px;
+  height: 400px;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 12px;
+  text-align: center;
 }
-form{
-	  left:50px;
-  	top:60px;
-  	position: absolute;
-  	opacity: 0;
-  	color: #e10d24; 
-  	font-family: georgia;
-  	text-align: center;
-  	background-color: transparent; 
+
+
+#canvasDiv{
+  position: absolute;
+  left:0px;
+  top:20px;
 }
 #logarea{
-    left:3px;
+    left:0px;
     top:260px;
+    width: 598px;
+    height: 35px;
     position: absolute;
-    font-family: : serif;
     text-align: left;
     color: #000000;
-    border-color: #cd1418;
-    border-width: 2px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #807d7d;
     background-color: #ffffff; 
     resize :none;
 }
-
 #text2{
-    left: 50px;
     top:10px;
     position: absolute;
-    font-family: : serif;
-    text-align: left;
+    text-align: center;
     color: #000000;
     background-color: transparent; 
     border: hidden;
-    resize :none;
     opacity: 0;
 }
+
 #text1{
-    left: 190px;
     top:10px;
     position: absolute;
-    font-family: : serif;
-    text-align: left;
+    text-align: center;
     color: #000000;
     background-color: transparent; 
     border: hidden;
     resize :none;
-    opacity: 0;
 }
-#qrCode{
-  margin-left:170px;
+#qrCode.img{
   margin-top: 10px;
   width: 200px;
   height: 200px;
-  opacity: 0;
-}
-#close{
-  position: absolute;
-  margin-left:565px;
-  margin-top: -5px;
-  border-style: none;;
 }
 #LightBox{
+  width: 500px;
+  height: 140px;
   position: absolute;
-  left: 3px;
-  top: 160px;
-  font-family: : serif;
+  top: 110px;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 12px;
   text-align: left;
   color: #cd1418;
   border-width: 2px;

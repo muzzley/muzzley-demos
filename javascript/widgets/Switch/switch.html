@@ -1,30 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-    <title>Muzzley Swipe</title>
-    <link rel="stylesheet" href="swipe.css">
-    <script src="http://cdn.geo.muzzley.com/libraries/js/muzzley-client-0.1.0.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="Tânia Rocha" content="Muzzley" />
+    <meta name="copyright" content="Muzzley" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <title>Muzzley Switch</title>
+    <link rel="stylesheet" href="switch.css">
+    <script src="http://cdn.geo.muzzley.com/libraries/js/muzzley-client-0.3.0.min.js"></script>
   </head>
   <body>
     
-    <textarea id="text1" class="textI" rows="1" cols="71,5" ></textarea>
-    <div id="qrCode"><img id="qrCodeContainer"></div>
-    <textarea id="logarea" onmouseout="hideJSONBox();" onmouseover="displayJSONBox(); return false;" rows="1" cols="71,5" ></textarea>
-    <div id="gallery"><img src="assets/image_0.png" id="mypic" border="0" height="200" width="300"></div>
-    <textarea id="text2" rows="1" cols="71,5" ></textarea>
+    <div id="text1" class="all"></div>
+    <div id="qrCode" class="all"><img id="qrCodeContainer"></div>
+    <div id="imageOn"><img src="assets/on.png" height="200" width="124"></div>
+    <div id="imageOff"><img src="assets/off.png" height="200" width="124"></div>
+    <div id="text2" class="all"></div>
+    <div id="logarea" class="all" onmouseout="hideJSONBox();" onmouseover="displayJSONBox(); return false;"></div>
     <textarea id="LightBox" rows="5" cols="71,5" style="display: none;"></textarea>
     <script>
 
       var textArea = document.getElementById('text1');
-      textArea.value = 'Scan to start interacting';
+      textArea.innerHTML = 'Scan to start interacting';
+      var logArea = document.getElementById('logarea');
+      var img = document.getElementById('qrCodeContainer');
       var textArea2 = document.getElementById('text2');
-      textArea2.value = 'Use your phone to swipe this photo gallery';
-        var LightBox = document.getElementById('LightBox'); LightBox.value = '';
-        var logArea = document.getElementById('logarea');
-
+      textArea2.innerHTML = 'Turn on/off the switch on your phone to control lamp';
+      var LightBox = document.getElementById('LightBox'); LightBox.value = '';
       var myAppToken = 'bcda9d7c69763a98';
-
+      var actionStr;
         muzzley.on('error', function(err) {
             //console.log("Error: " + err); 
             logText("Log | Error: " + err);
@@ -43,7 +50,6 @@
             //console.log(activity); 
             logText('Log | Activty Created - '+activity.activityId);
            
-            var img = document.getElementById('qrCodeContainer');
             img.src = activity.qrCodeUrl;         
 
             activity.on('participantQuit', function(participant) {
@@ -53,91 +59,49 @@
 
             activity.on('participantJoin', function(participant) {
               logText('Log | Participant Join - id:' + participant.id + ' name: ' + participant.name);
-          document.getElementById("qrCodeContainer").style.visibility = document.getElementById("text1").style.visibility = 'hidden';
-          document.getElementById("gallery").style.opacity = textArea2.style.opacity = 1;
+              img.style.opacity = textArea.style.opacity = 0;
+              document.getElementById('imageOff').style.opacity = textArea2.style.opacity = 1;
 
 
                 // A participant joined. Tell him to transform into a gamepad.
-                participant.changeWidget("swipeNavigator", function (err) {
+                participant.changeWidget("switch",{'isOn': 0}, function (err) {
                     if (err){
                       logText('Log | Change Widget Error: ' + err);
                       return //console.log('changeWidget error: ' + err );
                     }else{
-                      logText('Log | Widget Changed to swipeNavigator');
+                      logText('Log | Widget Changed to switch');
                     }
                 });
 
                 participant.on('action', function (action) {
                     // The action object represents the participant's interaction.
                     
-                    //console.log(action);
                     logText('Log | ' +JSON.stringify(action));
+                    
                     LightBox.value = JSON.stringify(action, null, 4);
-            if(action.v){
-              // Change to next or previous image according the direcction received from the widget
-              slideImages(action.v);            
-            }
+                    if(action.v == 1){
+                      document.getElementById('imageOff').style.opacity = 0;
+                      document.getElementById('imageOn').style.opacity = 1;
+                    }else{
+                      document.getElementById('imageOn').style.opacity = 0;
+                      document.getElementById('imageOff').style.opacity = 1;
+                    }  
+            
                 });
 
                 participant.on('quit', function (action) {
                     // You can also check for participant quit events
                     // directly in each participant object.
-                    document.getElementById("qrCodeContainer").style.visibility = document.getElementById("text1").style.visibility = 'visible';
+                    img.style.opacity = textArea.style.opacity = 1;
                     logText('Log | Participant Quit - id:' + participant.id);
-                    document.getElementById("gallery").style.opacity = textArea2.style.opacity = 0;
+                   document.getElementById('imageOff').style.opacity = document.getElementById('imageOn').style.opacity = textArea2.style.opacity = 0;
                 });
 
             });
         });
       
-      function slideImages(string){
-        switch(string){
-          case 'l':
-            slideshowBack(); return false;
-            break;
-          case 'r':
-            slideshowUp(); return false;
-            break;
-          case 'u':
-            slideshowUp(); return false;
-            break;
-          case 'd':
-            slideshowBack(); return false;
-            break;
-          default:
-            break;
-        }
-
-      }
-      
-      var num=0;
-
-      imgArray = [
-        ['assets/image_1.jpg'],
-        ['assets/image_2.png'],
-        ['assets/image_3.png'],
-        ['assets/image_4.jpg'],
-      ]
-
-      function slideshow(slide_num) {
-        document.getElementById('mypic').src=imgArray[slide_num][0];
-        document.getElementById('mypic').alt=imgArray[slide_num][1];
-      }
-
-      function slideshowUp() {
-        num++;
-        num = num % imgArray.length;
-        slideshow(num);
-      }
-
-      function slideshowBack() {
-        num--;
-        if (num < 0) {num=imgArray.length-1;}
-        num = num % imgArray.length;
-        slideshow(num);
-      }
       /* Display lightBox with formated JSON message, when the action message is received */
-      function displayJSONBox(){  
+      function displayJSONBox(){        
         if(document.getElementById("LightBox").style.display=="none" && LightBox.value.length != 0) {
           document.getElementById("LightBox").style.display="block";
         } 
@@ -152,8 +116,9 @@
       /* Write log message on log textarea*/
       function logText(text){
         LightBox.value = '';
-        logArea.value = text;
+        logArea.innerHTML = text;
       }
+      
     </script>
   </body>
 </html>

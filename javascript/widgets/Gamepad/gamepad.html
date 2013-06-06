@@ -7,28 +7,30 @@
         <link rel="stylesheet" href="gamepad.css">
         
         <script src='js/compass.js'></script>
-        <script src="http://cdn.geo.muzzley.com/libraries/js/muzzley-client-0.1.0.min.js"></script>
+        <script src="http://cdn.geo.muzzley.com/libraries/js/muzzley-client-0.3.0.min.js"></script>
         
     </head>
     <body>
-        <textarea id="text1" rows="1" cols="71,5" ></textarea>
-        <div id="qrCode"><img id="qrCodeContainer"></div>
+        <div id="text1" class="all"></div>
+        <div id="qrCode" class="all"><img id="qrCodeContainer"></div>
         <canvas id="compass" width="200" height="200"></canvas>
-        <img class="icon" id="icon" src="assets/muzzley.png">
-        <textarea id="logarea" onmouseout="hideJSONBox();" onmouseover="displayJSONBox(); return false;" rows="1" cols="71,5" ></textarea>
+        <img id="iconM" src="assets/muzzley.png">
+        <div id="logarea" class="all" onmouseout="hideJSONBox();" onmouseover="displayJSONBox(); return false;"></div>
         <textarea id="LightBox" rows="5" cols="71,5" style="display: none;"></textarea>
         <script>
 
             var logArea = document.getElementById('logarea');
             var LightBox = document.getElementById('LightBox'); LightBox.value = '';
             var textArea = document.getElementById('text1');
-            textArea.value = 'Scan to start interacting';
+            textArea.innerHTML = 'Scan to start interacting';
+            
             //muzzley icon
-            var mIcon= document.getElementById("icon");
+            var mIcon= document.getElementById("iconM");
             mIcon.style.left = 350+'px';
             mIcon.style.top = 100+'px';
             var keyPressed='';
             var myVar;
+            var qrImg = document.getElementById('qrCodeContainer');
             //load definitions to elements draw
             init('assets/needle.png', 'assets/angles.png');
 
@@ -51,9 +53,8 @@
                 // properties respectively.
                 //console.log(activity); 
                 logText('Log | Activty Created - '+activity.activityId);
-               
-                var img = document.getElementById('qrCodeContainer');
-                img.src = activity.qrCodeUrl;                 
+                textArea.style.opacity = 1;
+                qrImg.src = activity.qrCodeUrl;                 
 
                 activity.on('participantQuit', function(participant) {
                     // A participant quit
@@ -62,8 +63,9 @@
 
                 activity.on('participantJoin', function(participant) {
                     logText('Log | Participant Join - id:' + participant.id + ' name: ' + participant.name);
-                    img.style.visibility = textArea.style.visibility = 'hidden';
-                    mIcon.style.opacity = document.getElementById("compass").style.opacity = 1;
+                    
+                    qrImg.style.opacity=textArea.style.opacity = 0;
+                    document.getElementById("compass").style.opacity = mIcon.style.opacity = 1;
                     // init compass
                     
                     // A participant joined. Tell him to transform into a gamepad.
@@ -72,7 +74,7 @@
                             logText('Log | Change Widget Error: ' + err);
                             return //console.log('changeWidget error: ' + err );
                         }else{
-                            logText('Log | Widget Changed to gamepad');
+                            logText('Log | Widget Changed to Gamepad');
                         }
                     });
 
@@ -108,7 +110,7 @@
                         // You can also check for participant quit events
                         // directly in each participant object.
                         
-                        img.style.visibility = textArea.style.visibility = 'visible';
+                        qrImg.style.opacity = textArea.style.opacity = 1;
                         mIcon.style.opacity = document.getElementById("compass").style.opacity = 0;
                         mIcon.style.left = 350+'px';
                         mIcon.style.top = 100+'px';
@@ -172,7 +174,7 @@
             /* Write log message on log textarea*/
             function logText(text){
                 LightBox.value = '';
-                logArea.value = text;
+                logArea.innerHTML = text;
             }
         </script>
     </body>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="Tânia Rocha" content="Muzzley" />
+    <meta name="copyright" content="Muzzley" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <title>Muzzley Image</title>
+    <link rel="stylesheet" href="image.css">
+    <script src="http://cdn.geo.muzzley.com/libraries/js/muzzley-client-0.3.0.min.js"></script>
+  </head>
+  <body>
+    
+    <div id="text1" class="all"></div>
+    <div id="qrCode" class="all"><img id="qrCodeContainer"></div>
+    <div id="info" class="all"></div>
+    <ul id="images">
+        <li class="imageItem"><img src="https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-ash3/547834_544898852220377_1225126759_n.jpg" width="130" height="100"></li>
+        <li class="imageItem"><img src="https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-ash3/600638_516256211751308_151056364_n.png" width="100" height="100"></li>
+        <li class="imageItem"><img src="https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-ash3/558155_515034115206851_1828012593_n.jpg" width="130" height="100"></li>
+    </ul>
+    <div id="radioBtns" class="all">
+      <input id="rdi1" type="radio" name="orientation" value="landscape" checked="false" ><label for="rdi1">landscape</label>
+      <input id="rdi2" type="radio" name="orientation" value="portrait" checked="false" ><label for="rdi2">portrait</label>
+    </div>
+    <div id="logarea" class="all" onmouseout="hideJSONBox();" onmouseover="displayJSONBox(); return false;"></div>
+    <textarea id="LightBox" rows="5" cols="71,5" style="display: none;"></textarea>
+    <script>
+
+      var textArea  = document.getElementById('text1'); textArea.innerHTML = 'Scan to start interacting';
+      var text2     = document.getElementById('info'); text2.innerHTML = 'Select the orientation and the photo, and the photo will be sent to your phone';
+      var logArea   = document.getElementById('logarea');
+      var img       = document.getElementById('qrCodeContainer');
+      var LightBox  = document.getElementById('LightBox'); LightBox.value = '';
+      var gallery           = document.getElementById('images');
+      var orientationBtns   = document.getElementById('radioBtns');
+      var radio1            = document.getElementById('rdi1');
+      var radio2            = document.getElementById('rdi2');
+      var myAppToken        = 'bcda9d7c69763a98';
+      var actionStr;
+      var myParticipant;
+
+        muzzley.on('error', function(err) {
+            //console.log("Error: " + err); 
+            logText("Log | Error: " + err);
+        });
+
+        muzzley.connectApp(myAppToken, function(err, activity) {
+            if (err){
+              logText("Log | Connect error: " + err); 
+              return //console.log("Connect error: " + err);
+            } 
+
+            // Usually you'll want to show this Activity's QR code image
+            // or its id so that muzzley users can join.
+            // They are in the `activity.qrCodeUrl` and `activity.activityId`
+            // properties respectively.
+        
+            logText('Log | Activty Created - '+activity.activityId);
+           
+            img.src = activity.qrCodeUrl;         
+
+            activity.on('participantQuit', function(participant) {
+                // A participant quit
+                logText('Log | Participant Quit - id:' + participant.id);
+            });
+
+            activity.on('participantJoin', function(participant) {
+              logText('Log | Participant Join - id:' + participant.id + ' name: ' + participant.name);
+              img.style.opacity = textArea.style.opacity = 0;
+              gallery.style.opacity = orientationBtns.style.opacity = text2.style.opacity = 1;
+
+              myParticipant = participant;
+                // A participant joined. Wait until  a photo is checked to send changeWidget 
+               
+
+                participant.on('action', function (action) {
+                    // The action object represents the participant's interaction.
+                    console.log(action);
+                    logText('Log | ' +JSON.stringify(action));
+                    
+                    LightBox.value = JSON.stringify(action, null, 4);
+            
+            
+                });
+
+                participant.on('quit', function (action) {
+                    // You can also check for participant quit events
+                    // directly in each participant object.
+                   img.style.opacity = textArea.style.opacity = 1;
+                   gallery.style.opacity = orientationBtns.style.opacity = text2.style.opacity = 0;
+                   logText('Log | Participant Quit - id:' + participant.id);
+                   radio2.checked = radio1.checked = false;
+                  
+                });
+
+            });
+        });
+      
+      /* Display lightBox with formated JSON message, when the action message is received */
+      function displayJSONBox(){        
+        if(document.getElementById("LightBox").style.display=="none" && LightBox.value.length != 0) {
+          document.getElementById("LightBox").style.display="block";
+        } 
+      }
+
+      /* Hide lightBox with formated JSON message */
+      function hideJSONBox(){
+        if(document.getElementById("LightBox").style.display=="block"){
+          document.getElementById("LightBox").style.display="none";
+        }
+      }
+      /* Write log message on log textarea*/
+      function logText(text){
+        LightBox.value = '';
+        logArea.innerHTML = text;
+      }
+
+      
+      gallery.onclick = function(event){
+        var target = getEventTarget(event);
+        var orient;
+        
+        if(radio1.checked){
+            orient = 'landscape';
+        }else if(radio2.checked){
+            orient = 'portrait';
+        }
+        
+        myParticipant.changeWidget("image",
+        {
+          src: target.src,
+          orientation:orient,
+          mode: 'center'
+        }
+        , function (err) {
+          if (err){
+            logText('Log | Change Widget Error: ' + err); return;
+          }else{
+            logText('Log | Widget Changed to Image');
+            //logText('Log | Widget Changed to Image. Orientation: '+orient+' | Path: '+target.src);
+          }
+        });
+
+      }
+
+      function getEventTarget(e) {
+          e = e || window.event;
+          return e.target || e.srcElement; 
+      }
+
+      
+    </script>
+  </body>
+</html>

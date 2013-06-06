@@ -1,31 +1,34 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-    <title>Muzzley Switch</title>
-    <link rel="stylesheet" href="switch.css">
-    <script src="http://cdn.geo.muzzley.com/libraries/js/muzzley-client-0.1.0.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="Tânia Rocha" content="Muzzley" />
+    <meta name="copyright" content="Muzzley" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <title>Muzzley AssetsPicker</title>
+    <link rel="stylesheet" href="picker.css">
+    <script src="http://cdn.geo.muzzley.com/libraries/js/muzzley-client-0.3.0.min.js"></script>
   </head>
   <body>
     
-    <textarea id="text1" rows="1" cols="71,5" ></textarea>
-    <div id="qrCode"><img id="qrCodeContainer"></div>
-    <textarea id="logarea" onmouseout="hideJSONBox();" onmouseover="displayJSONBox(); return false;" rows="1" cols="71,5" ></textarea>
-    <div id="imageOn"><img src="assets/on.png" height="200" width="124"></div>
-    <div id="imageOff"><img src="assets/off.png" height="200" width="124"></div>
-    <textarea id="text2" rows="1" cols="71,5"></textarea>
+    <div id="text1" class="all"></div>
+    <div id="qrCode" class="all"><img id="qrCodeContainer"></div>
+   
+    <div id="logarea" onmouseout="hideJSONBox();" onmouseover="displayJSONBox(); return false;"></div>
     <textarea id="LightBox" rows="5" cols="71,5" style="display: none;"></textarea>
     <script>
 
-      var textArea = document.getElementById('text1');
-      textArea.value = 'Scan to start interacting';
-        var logArea = document.getElementById('logarea');
-        var img = document.getElementById('qrCodeContainer');
-        var textArea2 = document.getElementById('text2');
-      textArea2.value = 'Turn on/off the switch on your phone to control lamp';
-      var LightBox = document.getElementById('LightBox'); LightBox.value = '';
-      var myAppToken = 'bcda9d7c69763a98';
+      var textArea  = document.getElementById('text1'); textArea.innerHTML = 'Scan to start interacting';
+      var logArea   = document.getElementById('logarea');
+      var img       = document.getElementById('qrCodeContainer');
+      var LightBox  = document.getElementById('LightBox'); LightBox.value = '';
+      
+      var myAppToken        = 'bcda9d7c69763a98';
       var actionStr;
+
         muzzley.on('error', function(err) {
             //console.log("Error: " + err); 
             logText("Log | Error: " + err);
@@ -41,7 +44,7 @@
             // or its id so that muzzley users can join.
             // They are in the `activity.qrCodeUrl` and `activity.activityId`
             // properties respectively.
-            //console.log(activity); 
+        
             logText('Log | Activty Created - '+activity.activityId);
            
             img.src = activity.qrCodeUrl;         
@@ -53,17 +56,17 @@
 
             activity.on('participantJoin', function(participant) {
               logText('Log | Participant Join - id:' + participant.id + ' name: ' + participant.name);
-          document.getElementById("qrCodeContainer").style.visibility = document.getElementById("text1").style.visibility = 'hidden';
-          document.getElementById('imageOff').style.opacity = textArea2.style.opacity = 1;
+              img.style.opacity = textArea.style.opacity = 0;
 
-
-                // A participant joined. Tell him to transform into a gamepad.
-                participant.changeWidget("switch",{'isOn': 0}, function (err) {
+                // A participant joined. Wait until  a photo is checked to send changeWidget 
+               participant.changeWidget("assetsPicker",
+                {width: 400, height:200},
+                function (err) {
                     if (err){
                       logText('Log | Change Widget Error: ' + err);
                       return //console.log('changeWidget error: ' + err );
                     }else{
-                      logText('Log | Widget Changed to swipeNavigator');
+                      logText('Log | Widget Changed to switch');
                     }
                 });
 
@@ -73,22 +76,39 @@
                     logText('Log | ' +JSON.stringify(action));
                     
                     LightBox.value = JSON.stringify(action, null, 4);
-            if(action.v == 1){
-              document.getElementById('imageOff').style.opacity = 0;
-              document.getElementById('imageOn').style.opacity = 1;
-            }else{
-              document.getElementById('imageOn').style.opacity = 0;
-              document.getElementById('imageOff').style.opacity = 1;
-            }  
             
+            
+                });
+
+                participant.on('sharingInvitation', function (invite, cbAccept) {
+                  // invite object contains the invitation properties
+                  console.log(invite);
+
+                  var reason = '';
+
+                  // you need allways to call the callback with true or false and a reason
+                  // true accepts the invitation
+                  // false rejects
+
+                  cbAccept(true, reason);
+                });
+
+                participant.on('sendFile', function (file) {
+                  // "file" object contains all information about the file 
+                  console.log(file);
+                });
+
+                participant.on('sharingEnd', function (share) {
+                  // share object represents the shareInvitation that ended
+                  console.log(share);
                 });
 
                 participant.on('quit', function (action) {
                     // You can also check for participant quit events
                     // directly in each participant object.
-                    document.getElementById("qrCodeContainer").style.visibility = document.getElementById("text1").style.visibility = 'visible';
-                    logText('Log | Participant Quit - id:' + participant.id);
-                   document.getElementById('imageOff').style.opacity = document.getElementById('imageOn').style.opacity = textArea2.style.opacity = 0;
+                   img.style.opacity = textArea.style.opacity = 1;
+                   logText('Log | Participant Quit - id:' + participant.id);
+                  
                 });
 
             });
@@ -110,9 +130,9 @@
       /* Write log message on log textarea*/
       function logText(text){
         LightBox.value = '';
-        logArea.value = text;
+        logArea.innerHTML = text;
       }
-      
+
     </script>
   </body>
 </html>

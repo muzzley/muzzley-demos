@@ -5,57 +5,60 @@ body {
 	  height: 300;
 }
 
-div.text1
-{
-	font-family: serif;
-	color: #000000;
+.all{
+  width: 600px;
+  height: 400px;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 12px;
+  text-align: center;
+}		
 
-}			
-img.icon{
-	opacity: 0;
-	position: absolute;
-}
 canvas{
 	opacity: 0;
 	position: absolute;
 	left: 25px;
 	top: 30px;
 }
+
 #logarea{
-    left:3px;
-    top:260px;
+    left: 0px;
+    top:270px;
+    width: 598px;
+    height: 35px;
     position: absolute;
-    font-family: : serif;
     text-align: left;
     color: #000000;
-    border-width: 2px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #807d7d;
     background-color: #ffffff; 
     resize :none;
-    border-color: #cd1418;
 }
-
 #text1{
-    left: 190px;
-    top:10px;
+    text-align: center;
     position: absolute;
-    font-family: : serif;
-    text-align: left;
     color: #000000;
-    background-color: transparent; 
-    border: hidden;
-    resize :none;
-}
-#qrCode{
-  margin-left:170px;
-  margin-top: 10px;
+    background: transparent;
+ }
+
+#qrCode.img{
+  text-align: center;
   width: 200px;
   height: 200px;
 }
-#LightBox{
+
+#iconM{
+  opacity: 0;
   position: absolute;
-  left: 3px;
-  top: 160px;
-  font-family: : serif;
+}
+
+#LightBox{
+  width: 500px;
+  height: 90px;
+  position: absolute;
+  top: 170px;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 12px;
   text-align: left;
   color: #cd1418;
   border-width: 2px;

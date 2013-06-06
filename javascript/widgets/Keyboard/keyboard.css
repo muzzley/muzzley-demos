@@ -1,0 +1,75 @@
+body {
+  background-repeat:no-repeat;
+  background-image:url('assets/background.png');
+  width: 600px;
+  height: 400px;
+}
+
+.all{
+  width: 600px;
+  height: 400px;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 12px;
+  text-align: center;
+}
+
+#textViewer{
+  	top:60px;
+    width: 550px;
+    height: 200px;
+    left: 25px;
+  	position: absolute;
+  	opacity: 0;
+    font-size: 14px;
+  	color: #e10d24; 
+  	text-align: center;
+    background: #ffffff;
+}
+#logarea{
+    left: 0px;
+    top:270px;
+    width: 598px;
+    height: 35px;
+    position: absolute;
+    text-align: left;
+    color: #000000;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #807d7d;
+    background-color: #ffffff; 
+    resize :none;
+}
+#text1{
+    text-align: center;
+    position: absolute;
+    color: #000000;
+    background: transparent;
+ }
+#text2{
+    top:10px;
+    position: absolute;
+    color: #000000;
+    background-color: transparent; 
+    opacity: 0;
+}
+
+#qrCode.img{
+  text-align: center;
+  width: 200px;
+  height: 200px;
+}
+
+#LightBox{
+  width: 500px;
+  height: 90px;
+  position: absolute;
+  top: 170px;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 12px;
+  text-align: left;
+  color: #cd1418;
+  border-width: 2px;
+  border-color: #cd1418;
+  background-color: #ffffff; 
+  resize :none;
+}
