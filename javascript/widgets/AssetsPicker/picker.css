@@ -1,0 +1,78 @@
+body {
+  background-image:url('assets/background.png');
+  background-repeat:no-repeat;
+  width: 600;
+  height: 300;
+}
+
+.all{
+  width: 600px;
+  height: 400px;
+  font-family:Monaco, Consolas, "Lucida Console", monospace;
+  font-size: 12px;
+  text-align: center;
+}
+
+#logarea{
+    left:0px;
+    top:270px;
+    width: 598px;
+    height: 35px;
+    position: absolute;
+    text-align: left;
+    color: #000000;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #807d7d;
+    background-color: #ffffff; 
+    font-family:Monaco, Consolas, "Lucida Console", monospace;
+    font-size: 12px;
+    overflow: hidden;
+    resize :none;
+}
+#text1{
+    top:10px;
+    position: absolute;
+    text-align: center;
+    color: #000000;
+    background-color: transparent; 
+    border: hidden;
+    resize :none;
+}
+#text2{
+    top:10px;
+    position: absolute;
+    text-align:center;
+    color: #000000;
+    background-color: transparent; 
+    border: hidden;
+    resize :none;
+    opacity: 0;
+}
+#qrCode.img{
+  margin-top: 10px;
+  width: 200px;
+  height: 200px;
+  text-align: center;
+}
+
+#LightBox{
+  position: absolute;
+  left: 3px;
+  height: 130px;
+  top: 130px;
+  font-family: : Monaco, Consolas, "Lucida Console", monospace;
+  text-align: left;
+  color: #cd1418;
+  border-width: 2px;
+  border-color: #cd1418;
+  background-color: #ffffff; 
+  resize :none;
+}
+
+#imgS{
+  position: absolute;
+  top: 30px;
+  text-align: center;
+  opacity: 0
+}

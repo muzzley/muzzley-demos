@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="Tânia Rocha" content="Muzzley" />
+    <meta name="copyright" content="Muzzley" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <title>Muzzley AssetsPicker</title>
+    <link rel="stylesheet" href="picker.css">
+    <script src="http://cdn.geo.muzzley.com/libraries/js/muzzley-client-0.3.0.min.js"></script>
+  </head>
+  <body>
+    
+    <div id="text1" class="all"></div>
+    <div id="qrCode" class="all"><img id="qrCodeContainer"></div>
+    <div id="text2" class="all"></div>
+    <div id="imgS" class="all"><img id="sharedImg"></div>
+    <div id="logarea" onmouseout="hideJSONBox();" onmouseover="displayJSONBox(); return false;"></div>
+    <textarea id="LightBox" rows="5" cols="71,5" style="display: none;"></textarea>
+    <script>
+
+      var textArea  = document.getElementById('text1'); textArea.innerHTML = 'Scan to start interacting';
+      var textArea2 = document.getElementById('text2'); textArea2.innerHTML = 'Select from your phone the photo you want to share';
+      var logArea   = document.getElementById('logarea');
+      var img       = document.getElementById('qrCodeContainer');
+      var LightBox  = document.getElementById('LightBox'); LightBox.value = '';
+      var myAppToken   = 'bcda9d7c69763a98';
+      var actionStr;
+      var sharedImg = document.getElementById('sharedImg');
+
+        muzzley.on('error', function(err) {
+            logText("Log | Error: " + err);
+            reset();
+        });
+
+        muzzley.connectApp(myAppToken, function(err, activity) {
+            if (err){
+              logText("Log | Connect error: " + err); 
+              return;
+            } 
+
+            // Usually you'll want to show this Activity's QR code image
+            // or its id so that muzzley users can join.
+            // They are in the `activity.qrCodeUrl` and `activity.activityId`
+            // properties respectively.
+        
+            logText('Log | Activty Created - '+activity.activityId);
+           
+            img.src = activity.qrCodeUrl;         
+
+            activity.on('participantQuit', function(participant) {
+                // A participant quit
+                logText('Log | Participant Quit - id:' + participant.id);
+            });
+
+            activity.on('participantJoin', function(participant) {
+              logText('Log | Participant Join - id:' + participant.id + ' name: ' + participant.name);
+              img.style.opacity = textArea.style.opacity = 0;
+              textArea2.style.opacity = document.getElementById('imgS').style.opacity = 1;
+
+                // A participant joined. Wait until  a photo is checked to send changeWidget 
+               participant.changeWidget("assetsPicker",
+                {width: 600, height:230},
+                function (err) {
+                    if (err){
+                      logText('Log | Change Widget Error: ' + err);
+                      return;
+                    }else{
+                      logText('Log | Widget Changed to assetsPicker');
+                    }
+                });
+
+                participant.on('action', function (action) {
+                    // The action object represents the participant's interaction.
+                    logText('Log | ' +JSON.stringify(action));  
+                    LightBox.value = JSON.stringify(action, null, 4);            
+                });
+
+                participant.on('sharingInvitation', function (invite, cbAccept) {
+                  // invite object contains the invitation properties
+                  logText('Log | Sharing invitation received :' + JSON.stringify(invite));
+                  LightBox.value = JSON.stringify(invite, null, 4);
+                  var reason = '';
+                  // you need allways to call the callback with true or false and a reason
+                  // true accepts the invitation
+                  // false rejects
+
+                  cbAccept(true, reason);
+                });
+                participant.on('sharingFile', function (file) {
+                  // "file" object contains all information about the file 
+                  showImage(file.url);
+                  logText('Log | Sharing file received :' + JSON.stringify(file));
+                  LightBox.value = JSON.stringify(file, null, 4);
+                });
+
+                participant.on('sharingEnd', function (share) {
+                  // share object represents the shareInvitation that ended
+                  //logText('Log | Sharing end received :' + JSON.stringify(share));
+                  //LightBox.value = JSON.stringify(share, null, 4);
+                });
+
+                participant.on('quit', function (action) {
+                    // You can also check for participant quit events
+                    // directly in each participant object.
+                   reset();
+                   logText('Log | Participant Quit - id:' + participant.id);
+                  
+                });
+
+            });
+        });
+      
+      function reset(){
+        img.style.opacity = textArea.style.opacity = 1;
+        document.getElementById('imgS').style.opacity = textArea2.style.opacity = 0;
+      }
+
+      function showImage(url){
+          sharedImg.src = url;
+
+      }
+
+      /* Display lightBox with formated JSON message, when the action message is received */
+      function displayJSONBox(){        
+        if(document.getElementById("LightBox").style.display=="none" && LightBox.value.length != 0) {
+          document.getElementById("LightBox").style.display="block";
+        } 
+      }
+
+      /* Hide lightBox with formated JSON message */
+      function hideJSONBox(){
+        if(document.getElementById("LightBox").style.display=="block"){
+          document.getElementById("LightBox").style.display="none";
+        }
+      }
+      /* Write log message on log textarea*/
+      function logText(text){
+        LightBox.value = '';
+        logArea.innerHTML = text;
+      }
+
+    </script>
+  </body>
+</html>
