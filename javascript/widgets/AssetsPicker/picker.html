@@ -82,6 +82,8 @@
                 participant.on('sharingInvitation', function (invite, cbAccept) {
                   // invite object contains the invitation properties
                   logText('Log | Sharing invitation received :' + JSON.stringify(invite));
+
+                  //console.log(JSON.stringify(invite));
                   LightBox.value = JSON.stringify(invite, null, 4);
                   var reason = '';
                   // you need allways to call the callback with true or false and a reason
@@ -93,6 +95,7 @@
                 participant.on('sharingFile', function (file) {
                   // "file" object contains all information about the file 
                   showImage(file.url);
+                  //console.log(JSON.stringify(file));
                   logText('Log | Sharing file received :' + JSON.stringify(file));
                   LightBox.value = JSON.stringify(file, null, 4);
                 });
@@ -101,8 +104,12 @@
                   // share object represents the shareInvitation that ended
                   //logText('Log | Sharing end received :' + JSON.stringify(share));
                   //LightBox.value = JSON.stringify(share, null, 4);
+                   //console.log(share);
                 });
-
+                participant.on('sharingCancel', function (share) {
+                  // share object represents the shareInvitation that ended
+                  logText('Log | Share canceled');  console.log(share);
+                });
                 participant.on('quit', function (action) {
                     // You can also check for participant quit events
                     // directly in each participant object.

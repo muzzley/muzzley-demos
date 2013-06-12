@@ -116,7 +116,12 @@
         cubeContainer.style.opacity = 0;
           myParticipant.changeWidget(
           {
-            widget: 'switch',
+                widget: 'image', 
+                params: {  
+                  src: 'https://github.com/muzzley/muzzley-demos/blob/master/assets/sensor_help.png?raw=true', 
+                  orientation:'portrait', 
+                  mode: 'scaleFill'
+                },
                 components: [
                 {
                   c: 'deviceMotion',
