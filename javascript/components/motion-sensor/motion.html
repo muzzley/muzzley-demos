@@ -174,7 +174,11 @@
       }
 
       var cube = document.getElementById('cube');
-      
+      var oldV    = 0;
+      var dif     = 0;
+      var voltas  = 0;
+      var newValue = 0;
+
       function cubeTranform(action){
         
         var yValue;
@@ -183,24 +187,65 @@
 
             if(action.v.roll){
               xValue = action.v.roll;
-              cube.style.webkitTransform = "translateZ( -100px ) rotateX( "+xValue+"deg )";
-              cube.style.MozTransform = "translateZ( -100px ) rotateX( "+xValue+"deg )";
-              cube.style.oTransform = "translateZ( -100px ) rotateX( "+xValue+"deg )";
-              cube.style.transform = "translateZ( -100px ) rotateX( "+xValue+"ddeg )";
+              if(xValue < oldV){
+                dif = xValue - oldV;
+                if(dif < 0){
+                    if(Math.abs(dif) > 180){ voltas++; }
+                }
+              }else if(xValue > oldV){
+                dif = xValue - oldV;
+                if(dif > 0){
+                    if(Math.abs(dif) > 180){  voltas--; }
+                }
+              }
+              newValue = (360*voltas)+xValue;
+              cube.style.webkitTransform = "translateZ( -100px ) rotateX( "+newValue+"deg )";
+              cube.style.MozTransform = "translateZ( -100px ) rotateX( "+newValue+"deg )";
+              cube.style.oTransform = "translateZ( -100px ) rotateX( "+newValue+"deg )";
+              cube.style.transform = "translateZ( -100px ) rotateX( "+newValue+"deg )";
+              oldV = xValue;
             }
             else if(action.v.pitch){
                 zValue = action.v.pitch;
-                cube.style.webkitTransform = "translateZ( -100px ) rotateZ( "+zValue+"deg )";
-                cube.style.MozTransform = "translateZ( -100px ) rotateZ( "+zValue+"deg )";
-                cube.style.oTransform = "translateZ( -100px ) rotateZ( "+zValue+"deg )";
-                cube.style.transform = "translateZ( -100px ) rotateZ( "+zValue+"ddeg )";
+                if(zValue < oldV){
+                  dif = zValue - oldV;
+                  if(dif < 0){
+                      if(Math.abs(dif) > 180){ voltas++; }
+                  }
+                }else if(zValue > oldV){
+                  dif = zValue - oldV;
+                  if(dif > 0){
+                      if(Math.abs(dif) > 180){  voltas--; }
+                  }
+                }
+
+                newValue = (360*voltas)+zValue;
+                cube.style.webkitTransform = "translateZ( -100px ) rotateZ( "+newValue+"deg )";
+                cube.style.MozTransform = "translateZ( -100px ) rotateZ( "+newValue+"deg )";
+                cube.style.oTransform = "translateZ( -100px ) rotateZ( "+newValue+"deg )";
+                cube.style.transform = "translateZ( -100px ) rotateZ( "+newValue+"ddeg )";
+                oldV = zValue;
             }
             else if(action.v.yaw){
               yValue = action.v.yaw;
-              cube.style.webkitTransform = "translateZ( -100px ) rotateY( "+yValue+"deg )";
-              cube.style.MozTransform = "translateZ( -100px ) rotateY( "+yValue+"deg )";
-              cube.style.oTransform = "translateZ( -100px ) rotateY( "+yValue+"deg )";
-              cube.style.transform = "translateZ( -100px ) rotateY( "+yValue+"ddeg )";
+              if(yValue < oldV){
+                dif = yValue - oldV;
+                if(dif < 0){
+                    if(Math.abs(dif) > 180){ voltas++; }
+                }
+              }else if(yValue > oldV){
+                dif = yValue - oldV;
+                if(dif > 0){
+                    if(Math.abs(dif) > 180){  voltas--; }
+                }
+              }
+
+              newValue = (360*voltas)+yValue;
+              cube.style.webkitTransform = "translateZ( -100px ) rotateY( "+newValue+"deg )";
+              cube.style.MozTransform = "translateZ( -100px ) rotateY( "+newValue+"deg )";
+              cube.style.oTransform = "translateZ( -100px ) rotateY( "+newValue+"deg )";
+              cube.style.transform = "translateZ( -100px ) rotateY( "+newValue+"ddeg )";
+              oldV = yValue;
             }
       }
       
