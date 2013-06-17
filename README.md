@@ -49,6 +49,14 @@ The Gamepad demo allows you to control an arrow according to the angle that is r
 
 The Keyboard demo shows how to use muzzley as a remote virtual keyboard.
 
+## Media Share
+
+[http://www.muzzley.com/documentation/widgets/media-share.html](http://www.muzzley.com/documentation/widgets/media-share.html)
+
+![](https://github.com/muzzley/muzzley-demos/blob/master/assets/assets-picker.png?raw=true)
+
+The Media Share demo allows send files from the phone's gallery and see it on the app.
+
 ## Swipe Navigator
 
 [http://www.muzzley.com/documentation/widgets/swipe-navigator.html](http://www.muzzley.com/documentation/widgets/swipe-navigator.html)
@@ -75,7 +83,18 @@ This demos are available on components documentation page:  [http://www.muzzley.
 
 [http://www.muzzley.com/documentation/components/motion-sensor.html](http://www.muzzley.com/documentation/components/motion-sensor.html)
 
+![](https://github.com/muzzley/muzzley-demos/blob/master/assets/motion.png?raw=true)
 
+The Motion demo animates the rotation of the cube according the rotation of your phone. Allows three movements: roll, yaw and pitch.
+
+## Volume
+
+[http://www.muzzley.com/documentation/components/volume.html](http://www.muzzley.com/documentation/components/volume.html)
+
+![](https://github.com/muzzley/muzzley-demos/blob/master/assets/volume.png?raw=true)
+
+The Volume demo allows you to turn up and down the volume from the phone on is physical buttons
+and see the effect on the app.
 
 ----
 
