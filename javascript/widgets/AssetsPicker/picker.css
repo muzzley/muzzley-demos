@@ -14,40 +14,40 @@ body {
 }
 
 #logarea{
-    left:0px;
-    top:270px;
-    width: 598px;
-    height: 35px;
-    position: absolute;
-    text-align: left;
-    color: #000000;
-    border-width: 1px;
-    border-style: solid;
-    border-color: #807d7d;
-    background-color: #ffffff; 
-    font-family:Monaco, Consolas, "Lucida Console", monospace;
-    font-size: 12px;
-    overflow: hidden;
-    resize :none;
+  left:0px;
+  top:270px;
+  width: 598px;
+  height: 35px;
+  position: absolute;
+  text-align: left;
+  color: #000000;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #807d7d;
+  background-color: #ffffff; 
+  font-family:Monaco, Consolas, "Lucida Console", monospace;
+  font-size: 12px;
+  overflow: hidden;
+  resize :none;
 }
 #text1{
-    top:10px;
-    position: absolute;
-    text-align: center;
-    color: #000000;
-    background-color: transparent; 
-    border: hidden;
-    resize :none;
+  top:10px;
+  position: absolute;
+  text-align: center;
+  color: #000000;
+  background-color: transparent;
+  border: hidden;
+  resize :none;
 }
 #text2{
-    top:10px;
-    position: absolute;
-    text-align:center;
-    color: #000000;
-    background-color: transparent; 
-    border: hidden;
-    resize :none;
-    opacity: 0;
+  top:10px;
+  position: absolute;
+  text-align:center;
+  color: #000000;
+  background-color: transparent;
+  border: hidden;
+  resize :none;
+  opacity: 0;
 }
 #qrCode.img{
   margin-top: 10px;
@@ -61,7 +61,7 @@ body {
   left: 3px;
   height: 130px;
   top: 130px;
-  font-family: : Monaco, Consolas, "Lucida Console", monospace;
+  font-family: Monaco, Consolas, "Lucida Console", monospace;
   text-align: left;
   color: #cd1418;
   border-width: 2px;
