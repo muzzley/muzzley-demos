@@ -1,6 +1,6 @@
 # Muzzley Demos
 
-In these JavaScript demos we try to show you some examples of what's possible with `muzzley`. All these demos can be tested at [http://muzzley.com](http://muzzley.com), more specifically at the widgets documentation pages: [http://www.muzzley.com/documentation/widgets.html](http://www.muzzley.com/documentation/widgets.html).
+In these JavaScript demos we try to show you some examples of what's possible with `muzzley`. All these demos can be tested at [http://muzzley.com](http://muzzley.com), more specifically at the widgets documentation pages: [http://www.muzzley.com/documentation/widgets.html](http://www.muzzley.com/documentation/widgets.html) and components documentation pages: [http://www.muzzley.com/documentation/components.html](http://www.muzzley.com/documentation/components.html) .
 
 To interact with the demos, first you have to download the muzzley application to your smartphone. At [http://www.muzzley.com](http://www.muzzley.com) you have the links to the supported platforms (iOS and Android). Then download these demos to your computer, choose a demo and open the specific HTML file in your browser. This file represents a browser application that is _muzzley-enabled_.
 
@@ -20,7 +20,10 @@ Scan the QR code with your muzzley application to pair your phone with the brows
 
 From this point onwards, what each demo shows depends on the widget it's demonstrating.
 
-We have a few demos available, one for each widget muzzley provides.
+# Widgets #
+
+We have a few demos available, one for each widget muzzley provides. 
+This demos are available on widgets documentation page:  [http://www.muzzley.com/documentation/widgets.html](http://www.muzzley.com/documentation/widgets.html), on the `Try it here` section.
 
 ## Drawpad
 
@@ -61,6 +64,18 @@ With the Swipe Navigator demo you can swipe on your phone to navigate a picutre 
 ![](https://github.com/muzzley/muzzley-demos/blob/master/assets/switch.png?raw=true)
 
 The Switch demo allows you to switch a virtual lamp on and off.
+
+
+# Components #
+
+We have a few demos available from components, one for each component muzzley provides.
+This demos are available on components documentation page:  [http://www.muzzley.com/documentation/components.html](http://www.muzzley.com/documentation/components.html), on the `Try it here` section.
+
+## Motion
+
+[http://www.muzzley.com/documentation/components/motion-sensor.html](http://www.muzzley.com/documentation/components/motion-sensor.html)
+
+
 
 ----
 

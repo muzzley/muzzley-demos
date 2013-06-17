@@ -1,7 +1,6 @@
 # Blog Post
 
-Check this simple demos that ilustrate some examples of what you can do with muzzley. Is so simple to integrate muzzley, and see on action. 
-
+Check this simple demos that illustrate some examples of what you can do with muzzley. Is so simple to integrate muzzley, and see on action. 
 
 5 minutes to integrate:
 
@@ -48,8 +47,10 @@ Check this simple demos that ilustrate some examples of what you can do with muz
 With these code lines you have muzzley integrate and ready to use. 
 You can choose one of the available widgets to use one your application, and you can also activate a component with your widget.
 
-To demonstrate the aplication of the 5 available widgets you have on the site 
-[http://muzzley.com](http://muzzley.com), more specifically at the widgets documentation pages: [http://www.muzzley.com/documentation/widgets.html](http://www.muzzley.com/documentation/widgets.html)
+The available widgets are on. widgets documentation of the muzzley site [http://www.muzzley.com/documentation/widgets.html](http://www.muzzley.com/documentation/widgets.html)
+
+On witch widget page you have a section call `Try it here` and you will see a qr-code. This is the widget demo, you have to scan the qr-code with the muzzley app from your phone to start the demo. If you don't have the muzzley app, you can download it at [https://itunes.apple.com/us/app/muzzley/id604133373](https://itunes.apple.com/us/app/muzzley/id604133373 "IOS") or [https://play.google.com/store/apps/details?id=com.muzzley](https://play.google.com/store/apps/details?id=com.muzzley "Android").
+
 
 
 In these JavaScript demos we try to show you some examples of what's possible with `muzzley`. All these demos can be tested at [http://muzzley.com](http://muzzley.com), more specifically at the widgets documentation pages: [http://www.muzzley.com/documentation/widgets.html](http://www.muzzley.com/documentation/widgets.html).
