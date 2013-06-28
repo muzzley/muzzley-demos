@@ -64,7 +64,7 @@
                     img.style.visibility = textArea.style.visibility = 'hidden';
                     textArea2.style.opacity = 1;
                     // A participant joined. Tell him to transform into a gamepad.
-                    participant.changeWidget("drawpad",{sampling: 0.3}, function (err) {
+                    participant.changeWidget("drawpad",{sampling: (1/60)}, function (err) {
                         if (err){
                             logText('Log | Change Widget Error: ' + err);
                             return //console.log('changeWidget error: ' + err );
