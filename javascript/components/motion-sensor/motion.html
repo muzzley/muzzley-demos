@@ -113,12 +113,21 @@
       
       function sentValues(){
 
+        var imageHelpPath="";
+        if(radio1.checked){
+            imageHelpPath = "https://github.com/muzzley/muzzley-demos/blob/master/assets/MuzzWidget_RollMovement.png?raw=true";
+        }else if(radio2.checked){
+             imageHelpPath = "https://github.com/muzzley/muzzley-demos/blob/master/assets/MuzzWidget_PitchMovement.png?raw=true";
+        }else if(radio3.checked){
+            imageHelpPath = "https://github.com/muzzley/muzzley-demos/blob/master/assets/MuzzWidget_YawMovement.png?raw=true";
+        }
+
         cubeContainer.style.opacity = 0;
           myParticipant.changeWidget(
           {
                 widget: 'image', 
                 params: {  
-                  src: 'https://github.com/muzzley/muzzley-demos/blob/master/assets/sensor_help.png?raw=true', 
+                  src: imageHelpPath, 
                   orientation:'portrait', 
                   mode: 'scaleFill'
                 },
