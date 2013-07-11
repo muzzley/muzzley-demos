@@ -1,15 +1,16 @@
-function muzzConnect(){
 
-  var myAppToken = 'bcda9d7c69763a98';
-    console.log(DEFAULT_WIDTH+" "+DEFAULT_HEIGHT);
+function startMuzzley(){
+
+    var myAppToken = 'bcda9d7c69763a98';
+    //console.log(DEFAULT_WIDTH+" "+DEFAULT_HEIGHT);
 
     muzzley.on('error', function(err) {
-        console.log("Log | Error: " + err);
+        //console.log("Log | Error: " + err);
     });
 
     muzzley.connectApp(myAppToken, function(err, activity) {
         if (err){
-            console.log("Log | Connect error: " + err); 
+            //console.log("Log | Connect error: " + err); 
             return //console.log("Connect error: " + err);
         } 
 
@@ -18,22 +19,20 @@ function muzzConnect(){
         // They are in the `activity.qrCodeUrl` and `activity.activityId`
         // properties respectively.
         
-       console.log('Log | Activty Created - '+activity.activityId);
+       //console.log('Log | Activty Created - '+activity.activityId);
         
-        $('#qrCode img').attr('src', activity.qrCodeUrl);   
-        console.log($('#qrCode img').attr('src'));  
+        $('#qrCode img').attr('src', activity.qrCodeUrl);  
         $('#qrCode').css ('visibility', 'visible'); 
-        //$('#qrCode').attr('style.visibility', 'visible');  
 
         activity.on('participantJoin', function(participant) {
-            console.log('Log | Participant Join - id:' + participant.id + ' name: ' + participant.name);
+            //console.log('Log | Participant Join - id:' + participant.id + ' name: ' + participant.name);
             // A participant joined. Tell him to transform into a gamepad.
             participant.changeWidget("drawpad",{sampling: (1/60), decay:0}, function (err) {
                 if (err){
-                    console.log('Log | Change Widget Error: ' + err);
+                    //console.log('Log | Change Widget Error: ' + err);
                     return //console.log('changeWidget error: ' + err );
                 } else{
-                    console.log('Log | Widget Changed to Drawpad');
+                    //console.log('Log | Widget Changed to Drawpad');
                 }
             });
             start();
@@ -49,7 +48,7 @@ function muzzConnect(){
             participant.on('action', function (action) {
                 // The action object represents the participant's interaction.
                
-                console.log('Log | ' +JSON.stringify(action));
+                //console.log('Log | ' +JSON.stringify(action));
 
                 if(action.v){
                     //Draw on canvas the points that the participant sent. 
@@ -58,10 +57,8 @@ function muzzConnect(){
                      var x = Math.round( DEFAULT_WIDTH * (action.v.x));
                      var y = Math.round( DEFAULT_HEIGHT * (action.v.y));
 
-
-                     console.log(x+" "+y);                
                      if(action.c == "touch"){
-                          //console.log(x+" -- "+y);
+                          
                           if(action.e == "touchBegin"){
                               //topCanvas.addEventListener('mousemove', mousemove, false);
                               if(playing == false){
@@ -95,15 +92,12 @@ function muzzConnect(){
                           }
                       }          
                 }
-                if(action.c == "clean"){
-                    //start();
-                } 
             });
 
             participant.on('quit', function (action) {
                 // You can also check for participant quit events
                 // directly in each participant object
-                console.log('Log | Participant Quit - id:' + participant.id);
+                //console.log('Log | Participant Quit - id:' + participant.id);
                 $("#qrCode #start").text("Scan the QR code to start again");
                 stop();           
             });
