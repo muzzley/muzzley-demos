@@ -4,12 +4,12 @@ function startMuzzley(){
 var myAppToken = 'bcda9d7c69763a98';
 
 muzzley.on('error', function(err) {
-    console.log("Log | Error: " + err);
+    //console.log("Log | Error: " + err);
 });
 
 muzzley.connectApp(myAppToken, function(err, activity) {
     if (err){
-        console.log("Log | Connect error: " + err); 
+        //console.log("Log | Connect error: " + err); 
         return //console.log("Connect error: " + err);
     } 
 
@@ -18,23 +18,23 @@ muzzley.connectApp(myAppToken, function(err, activity) {
     // They are in the `activity.qrCodeUrl` and `activity.activityId`
     // properties respectively.
     
-   console.log('Log | Activty Created - '+activity.activityId);
+   //console.log('Log | Activty Created - '+activity.activityId);
     
     $('#qrCode img').attr('src', activity.qrCodeUrl);   
-    console.log($('#qrCode img').attr('src'));  
+    //console.log($('#qrCode img').attr('src'));  
     $('#qrCode').css ('visibility', 'visible'); 
     //$('#qrCode').attr('style.visibility', 'visible');  
 
     activity.on('participantJoin', function(participant) {
-        console.log('Log | Participant Join - id:' + participant.id + ' name: ' + participant.name);
+        //console.log('Log | Participant Join - id:' + participant.id + ' name: ' + participant.name);
         $('#qrCode').css ('visibility', 'hidden');
         // A participant joined. Tell him to transform into a gamepad.
         participant.changeWidget("drawpad",{sampling: (1/60), decay:0}, function (err) {
             if (err){
-                console.log('Log | Change Widget Error: ' + err);
+                //console.log('Log | Change Widget Error: ' + err);
                 return //console.log('changeWidget error: ' + err );
             } else{
-                console.log('Log | Widget Changed to Drawpad');
+                //console.log('Log | Widget Changed to Drawpad');
             }
         });
 
@@ -42,7 +42,7 @@ muzzley.connectApp(myAppToken, function(err, activity) {
         participant.on('action', function (action) {
             // The action object represents the participant's interaction.
            
-            console.log('Log | ' +JSON.stringify(action));
+            //console.log('Log | ' +JSON.stringify(action));
 
             if(action.v){
                 //Draw on canvas the points that the participant sent. 
@@ -82,7 +82,7 @@ muzzley.connectApp(myAppToken, function(err, activity) {
         participant.on('quit', function (action) {
             // You can also check for participant quit events
             // directly in each participant object
-            console.log('Log | Participant Quit - id:' + participant.id);
+            //console.log('Log | Participant Quit - id:' + participant.id);
             gameOver(true);
             
         });

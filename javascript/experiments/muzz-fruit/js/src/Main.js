@@ -115,7 +115,7 @@ function throwObject()
     	if(isThrowBomb())throwBomb();
         else throwFruit();
     };
-   createjs.Sound.play("throwFruit");
+   //createjs.Sound.play("throwFruit");
 }
 function isThrowBomb()
 {

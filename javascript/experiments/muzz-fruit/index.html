@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8" />
 <style type="text/css">
-body,html {
-		width: 750px;
-		height: 500px;
-		margin: 0;
-		padding: 0;
-		background-image: url(assets/bg.jpg)
-}
 
+body {
+	width: 750px;
+	height: 500px;
+	margin: 0;
+	padding: 0;
+	background-image: url(assets/bg.jpg);
+}
 
 #fork{
 	display: block;
@@ -21,7 +21,6 @@ body,html {
 	width: 149px;
 	height: 149px;
 	cursor: pointer;
-	background-image: url(assets/forkme.png);
 	z-index: 0;
 }
 #info a{
@@ -56,6 +55,9 @@ canvas{
 	width: 750px;
 	height: 500px;
 	margin: 0px 0px -500px 0px;
+	border-style:solid;
+	border-color:white;
+
 }
 
 #qrCode{
@@ -82,7 +84,7 @@ canvas{
 <script src="js/src/MuzzleyIntegration.js"></script>
 
 <script src="js/libs/preloadjs-0.3.0.min.js"></script>
-<script src="js/libs/soundjs-0.4.0.min.js"></script>
+<!--<script src="js/libs/soundjs-0.4.0.min.js"></script>-->
 <script src="js/libs/TweenLite.min.js"></script>
 <script src="js/libs/EasePack.min.js"></script>
 <script src="js/libs/spp.min.js"></script>
