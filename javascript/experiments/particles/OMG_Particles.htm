@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>OMG Particles!</title>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?1.25.0"></script>
+    <style type="text/css">
+
+body {
+  background:#ececec url('assets/background.png') left top no-repeat;
+  width: 960px;
+  height: 500px;
+}
+
+circle {
+  fill: none;
+  stroke-width: 1.5px;
+}
+img
+{
+	opacity:1;
+	position: absolute;
+}
+div.text1
+{
+	font-family: georgia;
+	color: #ffffff;
+	text-align: left;
+}
+div.text2
+{
+	font-family: georgia;
+	color: #ffffff;
+	text-align: center;
+	opacity:0;
+}
+
+#container{
+  position: absolute;
+  width: 960px;
+  height: 500px;
+  margin: -8px 0px 0px -8px;
+}
+</style>
+  </head>
+  <body>
+     <script src="http://cdn.geo.muzzley.com/libraries/js/muzzley-client-0.3.0.min.js"></script>
+     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	   <div id="container"></div>
+     <div class="text1" id="text1">Scan to start interact</div>
+	   <img id="qrCodeContainer">
+	   <div class="text2" id="text2">Draw on your phone to try</div>
+    <script>
+
+    var myAppToken = 'bcda9d7c69763a98';
+
+    muzzley.on('error', function(err) {
+        console.log("Error: " + err);
+    });
+
+    muzzley.connectApp(myAppToken, function(err, activity) {
+        if (err) return console.log("Connect error: " + err);
+
+        // Usually you'll want to show this Activity's QR code image
+        // or its id so that muzzley users can join.
+        // They are in the `activity.qrCodeUrl` and `activity.activityId`
+        // properties respectively.
+        console.log(activity);
+        document.getElementById('qrCodeContainer').src = activity.qrCodeUrl;
+
+        activity.on('participantQuit', function(participant) {
+            // A participant quit
+        });
+
+        activity.on('participantJoin', function(participant) {
+			document.getElementById("qrCodeContainer").style.opacity = 0;
+			document.getElementById("text1").style.opacity = 0;
+			document.getElementById("text2").style.opacity = 1;
+            // A participant joined. Tell him to transform into a gamepad.
+            participant.changeWidget("drawpad",{sampling: 1/60, decay:0}, function (err) {
+                if (err) return console.log('changeWidget error: ' + err );
+            });
+
+            participant.on('action', function (action) {
+                // The action object represents the participant's interaction.
+                // In this case it might be "button 'a' was pressed".
+                console.log(action);
+				if(action.v){
+					xValue = action.v.x;
+					yValue = action.v.y;
+					console.log(xValue+' '+yValue);
+					//alert(xValue+" "+yValue)
+					particle();
+				}
+            });
+
+            participant.on('quit', function (action) {
+                // You can also check for participant quit events
+                // directly in each participant object.
+            });
+
+        });
+    });
+
+    var w = 960,
+        h = 500,
+        z = d3.scale.category20c(),
+        i = 0;
+
+    var svg = d3.select("#container").append("svg:svg")
+        .attr("width", w)
+        .attr("height", h)
+        .style("pointer-events", "all")
+        //.on("mousemove", particle);
+
+    function particle() {
+      //var m = d3.svg.mouse(this);
+	  var mx = xValue*w;
+	  var my = yValue*h;
+	  
+      svg.append("svg:circle")
+          .attr("cx", mx)
+          .attr("cy", my)
+          .attr("r", 1e-6)
+          .style("stroke", z(++i))
+          .style("stroke-opacity", 1)
+        .transition()
+          .duration(2000)
+          .ease(Math.sqrt)
+          .attr("r", 100)
+          .style("stroke-opacity", 1e-6)
+          .remove();
+    }
+
+    </script>
+  </body>
+</html>
