@@ -123,67 +123,35 @@
             var clickY = new Array();
             var clickDrag = new Array();
             var paint;
+
+            // Configure pen style
+            context.strokeStyle = "#e10d24";
+            context.lineJoin = "round";
+            context.lineWidth = 4;
             
             /**
             * Read the object received, and draw according the type of acion. 
             * @param obg
             */
-            function draw(obj){
+            function draw(action){
                 //transform the absolute coordinates on relatve coordinates.
-                var x = Math.round(canvasWidth*(obj.v.x));
-                var y = Math.round(canvasHeight*(obj.v.y));  
+                var x = Math.round(canvasWidth*(action.v.x));
+                var y = Math.round(canvasHeight*(action.v.y));  
                                
-               if(obj.c == "touch"){
-                    if(obj.e=="touchBegin"){      
-                             
-                        paint = true;
-                        addClick(x , y );
-                        redraw();
-                    }else if(obj.e=="touchMove"){
-                       if(paint){
-                            addClick(x , y, true);
-                            redraw();
-                         }
-                    }else if(obj.e=="touchEnd"){
-                          paint = false;
-                    }
+                if(action.c !== "touch"){
+                    return;
                 }
-            }
 
-            /**
-            * Adds a point to the drawing array.
-            * @param x
-            * @param y
-            * @param dragging
-            */
-            function addClick(x, y, dragging)
-            {
-                clickX.push(x);
-                clickY.push(y);
-                clickDrag.push(dragging);
-            }
-
-            /**
-            * Redraws the canvas.
-            */
-            function redraw(){
-                canvas.width = canvas.width; // Clears the canvas
-                
-                context.strokeStyle = "#e10d24";
-                context.lineJoin = "round";
-                context.lineWidth = 5;
-                        
-                for(var i=0; i < clickX.length; i++)
-                {   
-                    context.beginPath();
-                    if(clickDrag[i] && i){
-                        context.moveTo(clickX[i-1], clickY[i-1]);
-                     }else{
-                         context.moveTo(clickX[i]-1, clickY[i]);
-                     }
-                     context.lineTo(clickX[i], clickY[i]);
-                     context.closePath();
-                     context.stroke();
+                switch (action.e) {
+                    case "touchBegin":
+                        context.beginPath();
+                        context.moveTo(x, y);
+                        break;
+                    case "touchMove":
+                        // Fallthrough
+                        context.lineTo(x, y);
+                        context.stroke();
+                        break;
                 }
             }
 
