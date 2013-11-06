@@ -32,9 +32,14 @@
             var myVar;
             var qrImg = document.getElementById('qrCodeContainer');
             //load definitions to elements draw
-            init('assets/needle.png', 'assets/angles.png');
+            init('assets/angles.png');
 
             var myAppToken = 'bcda9d7c69763a98';
+
+            //gamepad options configuration
+            var sector = 30;
+            var intensitySteps = 20;
+            var numButtons = 4;
 
             muzzley.on('error', function(err) {
                 //console.log("Error: " + err); 
@@ -69,14 +74,18 @@
                     // init compass
                     
                     // A participant joined. Tell him to transform into a gamepad.
-                    participant.changeWidget("gamepad",{sampling: 0.3}, function (err) {
-                        if (err){
-                            logText('Log | Change Widget Error: ' + err);
-                            return //console.log('changeWidget error: ' + err );
-                        }else{
-                            logText('Log | Widget Changed to Gamepad');
+                    participant.changeWidget(
+                        "gamepad",
+                        {sector: sector, intensitySteps: intensitySteps, numButtons: numButtons}, 
+                        function (err) {
+                            if(err){
+                                logText('Log | Change Widget Error: ' + err);
+                                return //console.log('changeWidget error: ' + err );
+                            }else{
+                                logText('Log | Widget Changed to Gamepad');
+                            }
                         }
-                    });
+                    );
 
                     participant.on('action', function (action) {
                         // The action object represents the participant's interaction.
@@ -86,11 +95,17 @@
                         LightBox.value = JSON.stringify(action, null, 4);
                         if(action.v){
                             
-                            degrees = action.v;
+                            degrees = action.v.a;
+                            intensitySteps = action.v.i;
+
                             if(degrees >= 0 && degrees <= 360){
-                                //Rotate the pointer according the angle value received.
-                                rotate();
+                                drawStats(degrees, intensitySteps, sector);
+                            } 
+                            
+                            if (degrees == -1) {
+                                drawStats(0, intensitySteps, sector);
                             }
+
                             if(action.v == 'a' || action.v == 'b' || action.v == 'c' || action.v == 'd'){
                                 //Move muzzley icon on x axis if the pressed key was 'a' or 'c'. 
                                 //And on the y axis if the pressed key was 'b' or 'd'.
@@ -98,11 +113,11 @@
                                 if(action.e == 'press'){
                                     myVar = window.setInterval(moveIcon, 100);
                                 }else{
-                                    clearInterval(myVar); document.getElementById("compass").style.opacity = 1;
+                                    clearInterval(myVar);
+                                    document.getElementById("compass").style.opacity = 1;
                                 }
                                 //moveIcon(action.v)
-                            }
-                            
+                            }        
                         }
                     });
 

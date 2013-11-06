@@ -1,8 +1,8 @@
 body {
-	  background-image:url('assets/background.png');
-	  background-repeat:no-repeat;
-	  width: 600;
-	  height: 300;
+    background-image:url('assets/background.png');
+    background-repeat:no-repeat;
+    width: 600;
+    height: 300;
 }
 
 .all{
@@ -11,13 +11,13 @@ body {
   font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 12px;
   text-align: center;
-}		
+}   
 
 canvas{
-	opacity: 0;
-	position: absolute;
-	left: 25px;
-	top: 30px;
+  opacity: 0;
+  position: absolute;
+  left: 25px;
+  top: 30px;
 }
 
 #logarea{
@@ -54,9 +54,9 @@ canvas{
 
 #LightBox{
   width: 500px;
-  height: 90px;
+  height: 130px;
   position: absolute;
-  top: 170px;
+  top: 125px;
   font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 12px;
   text-align: left;

@@ -1,8 +1,9 @@
 // Global variable
 var img = null,
-	needle = null,
 	ctx = null,
-	degrees = 0;
+	degrees = 0,
+	intensitySteps = 0,
+	radius = 80;
 
 function clearCanvas() {
 	 // clear canvas
@@ -10,44 +11,63 @@ function clearCanvas() {
 }
 
 function rotate(){
-	degrees = 360 - (degrees - 90);	
 	draw();
 }
 
-function draw() {
-	
+function toRadians(deg) {
+	return deg * Math.PI / -180
+}
+
+function drawStats(degrees, intensitySteps, sector) {
+
 	clearCanvas();
 
+    ctx.save();
 	// Draw the compass onto the canvas
 	ctx.drawImage(img, 0, 0);
+   
+   // Draw the red sector
+    var shift = sector/2;
+	
+	var beginRadian = toRadians(degrees - shift);
+	var endRadian = toRadians(degrees + shift);
+	var intensity = radius * intensitySteps;
 
-	// Save the current drawing state
-	ctx.save();
+    ctx.fillStyle = 'rgba(200, 0 ,0 , 0.75)';
 
-	// Now move across and down half the 
-	ctx.translate(100, 100);
+	ctx.beginPath();
+	ctx.moveTo(100, 100);
+    ctx.arc(100, 100, intensity, beginRadian, endRadian, true);
+    ctx.lineTo(100, 100);
+    ctx.closePath();
+    ctx.fill();
 
-	// Rotate around this point
+    // Draw the circle representing the angle
+    var ballRadius = 2 + (2 * intensitySteps);
+    
+    var ball_x = 100 + ( intensity * Math.cos(toRadians(degrees)) );
+    var ball_y = 100 + ( intensity * Math.sin(toRadians(degrees)) );
 
-	ctx.rotate(degrees * (Math.PI / 180));
-	//alert(degrees + newDegrees);
-
-	// Draw the image back and up
-	ctx.drawImage(needle, -100, -100);
-
+    ctx.beginPath();
+    ctx.arc(ball_x, ball_y, ballRadius, 0, 2 * Math.PI, false);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fill();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = '#CC0000';
+    ctx.stroke();
+    
 	// Restore the previous drawing state
 	ctx.restore();
-
 }
 
 
 function imgLoaded() {
 	// Image loaded event complete.  Start the timer
 	//setInterval(draw, 100);
-	draw();
+	drawStats(0, 0, 0);
 }
 
-function init(image1, image2) {
+function init(image) {
 	// Grab the compass element
 	var canvas = document.getElementById('compass');
 
@@ -55,18 +75,12 @@ function init(image1, image2) {
 	if (canvas.getContext('2d')) {
 		ctx = canvas.getContext('2d');
 
-		// Load the needle image
-		needle = new Image();
-		needle.src = image1;
-
 		// Load the compass image
 		img = new Image();
-		img.src = image2;
+		img.src = image;
 		img.onload = imgLoaded;
 
 	} else {
 		alert("Canvas not supported!");
 	}
-
-	
 }
