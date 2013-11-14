@@ -78,7 +78,7 @@
                     // NOTE! - Only iOS widget gamepad supports parameters "sector" and "intensitySteps".
                     participant.changeWidget(
                         "gamepad",
-                        //{sector: sector, intensitySteps: intensitySteps, numButtons: numButtons}, 
+                        {sector: sector, intensitySteps: intensitySteps, numButtons: numButtons}, 
                         function (err) {
                             if(err){
                                 logText('Log | Change Widget Error: ' + err);
