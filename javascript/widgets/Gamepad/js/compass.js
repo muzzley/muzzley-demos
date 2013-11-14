@@ -19,6 +19,9 @@ function toRadians(deg) {
 }
 
 function drawStats(degrees, intensitySteps, sector) {
+	
+	// Parse when degrees value is a string
+	degrees = parseFloat(degrees);
 
 	clearCanvas();
 

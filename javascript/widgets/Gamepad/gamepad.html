@@ -37,6 +37,7 @@
             var myAppToken = 'bcda9d7c69763a98';
 
             //gamepad options configuration
+            //NOTE! - Only iOS widget gamepad supports parameters "sector" and "intensitySteps".
             var sector = 30;
             var intensitySteps = 20;
             var numButtons = 4;
@@ -74,9 +75,10 @@
                     // init compass
                     
                     // A participant joined. Tell him to transform into a gamepad.
+                    // NOTE! - Only iOS widget gamepad supports parameters "sector" and "intensitySteps".
                     participant.changeWidget(
                         "gamepad",
-                        {sector: sector, intensitySteps: intensitySteps, numButtons: numButtons}, 
+                        //{sector: sector, intensitySteps: intensitySteps, numButtons: numButtons}, 
                         function (err) {
                             if(err){
                                 logText('Log | Change Widget Error: ' + err);
@@ -90,21 +92,37 @@
                     participant.on('action', function (action) {
                         // The action object represents the participant's interaction.
                         // In this case it might be "button 'a' was pressed".
-                        //console.log(action); 
+                         console.log(action); 
                         logText('Log | Action received - ' +JSON.stringify(action));
                         LightBox.value = JSON.stringify(action, null, 4);
                         if(action.v){
                             
-                            degrees = action.v.a;
-                            intensitySteps = action.v.i;
-
-                            if(degrees >= 0 && degrees <= 360){
-                                drawStats(degrees, intensitySteps, sector);
-                            } 
-                            
-                            if (degrees == -1) {
-                                drawStats(0, intensitySteps, sector);
+                            var newAngleDegree;
+                            var newIntensitySteps;
+                            var newSector = sector;
+                            // Check what action's key 'v' value is, to find 
+                            // if the gamepad sends you the old or the new format.
+                            if(typeof action.v == 'object') {
+                                // New format parsing.
+                                newAngleDegree = action.v.a;
+                                newIntensitySteps = action.v.i;
+                            } else { 
+                                // Compatibility support - Old format parsing.
+                                // The gamepad is divided in 8 equal parts with 45 degrees each.
+                                newAngleDegree = action.v;
+                                newIntensitySteps = 1;
+                                newSector = 45; 
                             }
+                            
+                            if(newAngleDegree < 0) {
+                                // if newAngleDegree is equal to -1
+                                // the gamepad was released.
+                                newAngleDegree = 0;
+                                newIntensitySteps = 0;
+                                newSector = 0;
+                            }
+
+                            drawStats(newAngleDegree, newIntensitySteps, newSector);
 
                             if(action.v == 'a' || action.v == 'b' || action.v == 'c' || action.v == 'd'){
                                 //Move muzzley icon on x axis if the pressed key was 'a' or 'c'. 
