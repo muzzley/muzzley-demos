@@ -37,20 +37,18 @@
             var myAppToken = 'bcda9d7c69763a98';
 
             //gamepad options configuration
-            //NOTE! - Only iOS widget gamepad supports parameters "sector" and "intensitySteps".
             var sector = 30;
             var intensitySteps = 20;
             var numButtons = 4;
 
             muzzley.on('error', function(err) {
-                //console.log("Error: " + err); 
                 logText("Log | Error: " + err);    
             });
 
             muzzley.connectApp(myAppToken, function(err, activity) {
                 if (err){
                     logText("Log | Connect error: " + err);
-                    return //console.log("Connect error: " + err);
+                    return;
                 }      
 
                 // Usually you'll want to show this Activity's QR code image
@@ -75,7 +73,6 @@
                     // init compass
                     
                     // A participant joined. Tell him to transform into a gamepad.
-                    // NOTE! - Only iOS widget gamepad supports parameters "sector" and "intensitySteps".
                     participant.changeWidget(
                         "gamepad",
                         {sector: sector, intensitySteps: intensitySteps, numButtons: numButtons}, 
