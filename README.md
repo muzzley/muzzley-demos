@@ -99,3 +99,6 @@ and see the effect on the app.
 ----
 
 All these demos use the muzzley cloud for the communication between the smartphone and the browser that runs them. There's no need to have both endpoints connected to the same Wi-Fi network.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/muzzley/muzzley-demos/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
