@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="Tânia Rocha" content="Muzzley" />
+  <meta name="copyright" content="Muzzley" />
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <title>Muzzley Volume Component</title>
+  <link rel="stylesheet" href="codeScanner.css">
+  <script src="//cdn.muzzley.com/libraries/js/muzzley-client-0.3.5.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div id="first">
+      <p class="header">Scan to start interact</p>
+    </div>
+    <div id="second">
+      <div class="center">
+        <p>Use your phone to scan the different codes</p>
+        <div id='images' class="img-wrap">
+          <img src="http://www.muzzley.com/qrcode/aaaaaaaaaaaa">
+          <img src="http://www.muzzley.com/qrcode/bbbbbbbbbbbb">
+          <img src="http://www.muzzley.com/qrcode/cccccccccccc">
+        </div>
+      </div>
+    </div>
+    <div class="log">
+      <div id="images" class="log-wrap">
+        <textarea id="detailed" class="detailed"></textarea>  
+      </div>
+      <div id="last" class="last"></div>      
+    </div>
+    
+  </div>
+  
+  <script>
+    var token = 'bcda9d7c69763a98';
+
+    var _log = document.getElementById('detailed');
+    var _last = document.getElementById('last');
+    var _first = document.getElementById('first');
+    var _second = document.getElementById('second');
+    _second.style.display = 'none';
+
+    var _images = [];
+    var local = document.getElementById('images').childNodes;
+    
+    for (var i = 0; i < local.length; ++i) {
+      var e = local[i];
+      if (e.nodeName.toLowerCase() === 'img') {
+        _images.push(e);
+      }
+    }
+        
+    var logger = function (message) {
+      var last;
+      while (last = _last.lastChild) {
+        _last.removeChild(last);
+      }
+      
+      var m = message + '\n';
+      var p = document.createElement('p');
+      p.innerHTML = message;
+      
+      _last.appendChild(p);
+      _log.value += m;
+      _log.scrollTop = _log.scrollHeight;
+    }
+    
+    muzzley.on('error', function(err) {
+      logger("Error: " + JSON.stringify(err));
+    });
+
+    var number = 0
+    var participants = { };
+    muzzley.connectApp(token, function(err, activity) {
+      if (err) return logger("Connect error: " + err); 
+      
+      function broadcast(value, participant) {
+        if (participant) 
+          return participant.sendSignal('signalComponent', {
+            'a': 'vibrate',
+            'c': 'vibration',
+            'd': { 'v': value }
+          });
+        
+        for (var key in participants) {
+          var p = participants[key];
+          p.sendSignal('signalComponent', {            
+            'a': 'vibrate',
+            'c': 'vibration',
+            'd': { 'v': value }
+          });
+        }
+      }
+
+      logger('Activity created - ' + activity.activityId);
+      var img = document.createElement('img');
+      img.className = 'qrcode'
+      img.setAttribute('src', activity.qrCodeUrl);
+      img.setAttribute('alt', 'Qr code');
+      _first.appendChild(img);
+      
+      activity.on('participantJoin', function(participant) {
+        first.style.display = 'none';
+        second.style.display = 'block';
+
+        number += 1;
+        participants[participant.id] = participant
+        logger('Participant join - id:' + participant.id + ' name: ' + participant.name);
+
+        var reference = 'a'.charCodeAt(0);
+        participant.on('action', function(action) {
+          logger('Action received - ' + JSON.stringify(action, null, 4));
+          broadcast(1, participant);          
+          var i = action.v.charCodeAt(0) - reference;
+          if (i < 0 || i > _images.length - 1) return;
+
+          var image = _images[i];
+          image.className = 'outline';
+          setTimeout(function () {
+            image.className = '';
+          }, 1000);
+        });
+
+        participant.on('quit', function () {
+          number -= 1;
+          delete participants[participant.id];
+          logger('Participant quit - id:' + participant.id);
+          if (number === 0) {
+            first.style.display = 'block';
+            second.style.display = 'none';
+          }
+        });
+
+        participant.changeWidget({
+            widget: 'codeScanner',
+            params: { treshold: 1000, orientation: 'portrait' }, 
+            components: [{c: 'vibration'}]
+          }, function (err) {
+          if (err) return logger('Change Widget Error: ' + err);
+          logger('Widget changed / Vibration component activated');
+        });
+      });
+    });
+</script>
+</body>
+</html>
