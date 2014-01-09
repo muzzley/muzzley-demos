@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="Tânia Rocha" content="Muzzley" />
+  <meta name="copyright" content="Muzzley" />
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <title>Muzzley Volume Component</title>
+  <link rel="stylesheet" href="vibration.css">
+  <script src="//cdn.muzzley.com/libraries/js/muzzley-client-0.3.5.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div id="first">
+      <p class="header">Scan to start interact</p>
+    </div>
+    <div id="second">
+      <div class="center">
+        <div>
+          <p>Select the vibration you want to send:</p>
+          <select id="options"></select>
+        </div>
+        <div class="form">
+        <form><button id="button">Vibrate</button></form>
+        <form><button id="stop">Stop</button></form>
+        </div>
+        <p class='alert'>Only android suport diferent vibration values</p>
+      </div>
+    </div>
+    <div class="log">
+      <div class="wrap">
+        <textarea id="detailed" class="detailed"></textarea>  
+      </div>
+      <div id="last" class="last"></div>      
+    </div>
+    
+  </div>
+  
+  <script>
+    var token = 'bcda9d7c69763a98';
+    var options = {
+      '1': 'Single 1',
+      '2': 'Single 2',
+      '3': 'Single 3',
+      '4': 'Single 4',
+      '5': 'Single 5',
+      '6': 'Single 6',
+      '7': 'Single 7',
+      '8': 'Single 8',
+      '9': 'Single 9',
+      '10': 'Single 10',
+      '11': 'Single 11',
+      '12': 'Double 1',
+      '13': 'Double 2',
+      '14': 'Double 3',
+      '15': 'Double 4',
+      '16': 'Double 5',
+      '17': 'Double 6',
+      '18': 'Double 7',
+      '19': 'Double 8',
+      '20': 'Double 9',
+      '21': 'Triple 1',
+      '22': 'Triple 2',
+      '23': 'Triple 3',
+      '24': 'Triple 4',
+      '25': 'Triple 5',
+      '26': 'Triple 6',
+      '27': 'Triple 7',
+      '28': 'Triple 8',
+      '29': 'Triple 9',
+      '30': 'Triple 10',
+      '31': 'Buzz 1',
+      '32': 'Buzz 2',
+      '33': 'Ramp Up 1',
+      '34': 'Ramp Up 2',
+      '35': 'Ramp Up 3',
+      '36': 'Ramp Up 4',
+      '37': 'Ramp Up 5',
+      '38': 'Ramp Up 6',
+      '39': 'Ramp Down 1',
+      '40': 'Ramp Down 2',
+      '41': 'Ramp Down 3',
+      '42': 'Ramp Down 4',
+      '43': 'Ramp Down 5',
+      '44': 'Ramp Down 6',
+      '46': 'Pulse 1',
+      '47': 'Pulse 2',
+      '48': 'Pulse 3',
+      '49': 'Pulse 4',
+      '50': 'Pulse 5',
+      '51': 'Pulse 6',
+      '52': 'Pulse 7',
+      '53': 'Pulse 8',
+      '54': 'Pulse 9',
+      '55': 'Pulse 10',
+      '56': 'Pulse 11',
+      '57': 'Pulse 12',
+      '58': 'Pulse 13',
+      '59': 'Buzz Bump 1',
+      '60': 'Buzz Bump 2',
+      '61': 'Buzz Bump 3',
+      '62': 'Buzz Bump 4',
+      '63': 'Buzz Bump 5',
+      '64': 'Buzz Bump 6',
+      '65': 'Buzz Bump 7',
+      '66': 'Buzz Bump 8',
+      '67': 'Alert 1',
+      '68': 'Alert 2',
+      '69': 'Alert 3',
+      '70': 'Alert 4',
+      '71': 'Explosion 1',
+      '72': 'Explosion 2',
+      '73': 'Explosion 3',
+      '74': 'Explosion 4',
+      '75': 'Explosion 5',
+      '76': 'Explosion 6',
+      '77': 'Explosion 7',
+      '78': 'Explosion 8',
+      '79': 'Explosion 9',
+      '80': 'Explosion 10',
+      '81': 'Explosion 11',
+      '82': 'Explosion 12',
+      '83': 'Weapon 1',
+      '84': 'Weapon 2',
+      '85': 'Weapon 3',
+      '86': 'Weapon 4',
+      '87': 'Weapon 5',
+      '88': 'Weapon 6',
+      '89': 'Weapon 7',
+      '90': 'Collision 1',
+      '91': 'Collision 2',
+      '92': 'Collision 3',
+      '93': 'Collision 4',
+      '94': 'Collision 5',
+      '95': 'Collision 6',
+      '96': 'Collision 7',
+      '97': 'Collision 8',
+      '98': 'Collision 9',
+      '99': 'Collision 10',
+      '100': 'Collision 11',
+      '101': 'Collision 12',
+      '102': 'Collision 13',
+      '103': 'Collision 14',
+      '104': 'Collision 15',
+      '105': 'Collision 16',
+      '106': 'Collision 17',
+      '107': 'Texture 1',
+      '108': 'Texture 2',
+      '109': 'Texture 3',
+      '110': 'Texture 4',
+      '111': 'Texture 5',
+      '112': 'Texture 6',
+      '113': 'Texture 7',
+      '114': 'Texture 8',
+      '115': 'Texture 9',
+      '116': 'Texture 10',
+      '117': 'Texture 11',
+      '118': 'Texture 12',
+      '119': 'Texture 13',
+      '120': 'Texture 14',
+      '121': 'Engine 1',
+      '122': 'Engine 2',
+      '123': 'Engine 3'
+    }
+
+    var _log = document.getElementById('detailed');
+    var _last = document.getElementById('last');
+    var _options = document.getElementById('options');
+    var _first = document.getElementById('first');
+    var _second = document.getElementById('second');
+    _second.style.display = 'none';
+    
+
+    var _stop = document.getElementById('stop');
+    var _vibrate = document.getElementById('button');
+    
+    var o = document.createElement('option');
+    for (var key in options) {
+      var value = options[key];
+      o.value = key;  
+      o.text = value;
+      _options.appendChild(o.cloneNode(true));
+    };
+    
+    var logger = function (message) {
+      
+      var last;
+      while (last = _last.lastChild) {
+        _last.removeChild(last);
+      }
+      
+      var m = message + '\n';
+      var p = document.createElement('p');
+      p.innerHTML = message;
+      
+      _last.appendChild(p);
+      _log.value += m;
+      _log.scrollTop = _log.scrollHeight;
+    }
+    
+    muzzley.on('error', function(err) {
+      logger("Error: " + JSON.stringify(err));
+    });
+
+    var number = 0
+    var participants = { };
+    muzzley.connectApp(token, function(err, activity) {
+      if (err) return logger("Connect error: " + err); 
+      
+      function broadcast(value, participant) {
+        if (participant) 
+          return participant.sendSignal('signalComponent', {
+            'a': 'vibrate',
+            'c': 'vibration',
+            'd': { 'v': value }
+          });
+        
+        for (var key in participants) {
+          var p = participants[key];
+          p.sendSignal('signalComponent', {            
+            'a': 'vibrate',
+            'c': 'vibration',
+            'd': { 'v': value }
+          });
+        }
+      }
+
+      _stop.form.onsubmit = function (e) {
+        broadcast(0);
+        e.preventDefault();
+      };
+
+      _vibrate.form.onsubmit = function (e) {
+        broadcast(_options[_options.selectedIndex].value);
+        e.preventDefault();
+      };
+
+      logger('Activity created - ' + activity.activityId);
+      var img = document.createElement('img');
+      img.className = 'qrcode'
+      img.setAttribute('src', activity.qrCodeUrl);
+      img.setAttribute('alt', 'Qr code');
+      _first.appendChild(img);
+      
+      activity.on('participantJoin', function(participant) {
+        first.style.display = 'none';
+        second.style.display = 'block';
+
+        number += 1;
+        participants[participant.id] = participant
+        logger('Participant join - id:' + participant.id + ' name: ' + participant.name);
+
+        participant.on('action', function(action) {
+          logger('Action received - ' + JSON.stringify(action, null, 4));
+          if (action.c[0] === 'b' && action.e === 'press') {
+            broadcast(1, participant);
+          }
+          if (action.c === 'jl') {
+            if (!participant._press && action.e === 'press') {
+              participant._press = true;
+              broadcast(1, participant); 
+            }
+            if (participant._press && action.e === 'release') {
+              delete participant._press;
+              broadcast(1, participant); 
+            }
+          }
+        });
+
+        participant.on('quit', function () {
+          number -= 1;
+          delete participants[participant.id];
+          logger('Participant quit - id:' + participant.id);
+          if (number === 0) {
+            first.style.display = 'block';
+            second.style.display = 'none';
+          }
+        });
+
+        participant.changeWidget({
+          widget: 'gamepad',
+          components: [{c: 'vibration'}]
+        }, function (err) {
+          if (err) return logger('Change Widget Error: ' + err);
+          logger('Widget changed / Vibration component activated');
+        });
+      });
+    });
+</script>
+</body>
+</html>

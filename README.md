@@ -96,6 +96,14 @@ The Motion demo animates the rotation of the cube according the rotation of your
 The Volume demo allows you to turn up and down the volume from the phone on is physical buttons
 and see the effect on the app.
 
+## Vibration
+
+[http://www.muzzley.com/documentation/components/vibration.html](http://www.muzzley.com/documentation/components/vibration.html)
+
+![](https://github.com/muzzley/muzzley-demos/blob/master/assets/vibration.png?raw=true)
+
+The Vibration demo allows you to turn your phone vibration on and off. Choose the desired vibration effect or press the gamepad buttons to see this component in action.
+
 ----
 
 All these demos use the muzzley cloud for the communication between the smartphone and the browser that runs them. There's no need to have both endpoints connected to the same Wi-Fi network.
