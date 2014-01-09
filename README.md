@@ -25,6 +25,14 @@ From this point onwards, what each demo shows depends on the widget it's demonst
 We have a few demos available, one for each widget muzzley provides. 
 This demos are available on widgets documentation page:  [http://www.muzzley.com/documentation/widgets.html](http://www.muzzley.com/documentation/widgets.html), on the `Try it here` section.
 
+## Code Scanner
+
+[http://www.muzzley.com/documentation/widgets/code-scanner.html](http://www.muzzley.com/documentation/widgets/code-scanner.html)
+
+![](https://github.com/muzzley/muzzley-demos/blob/master/assets/code-scanner.png?raw=true)
+
+The Code Scanner demo allows you to scan another muzzley activity using your phone camera.
+
 ## Drawpad
 
 [http://www.muzzley.com/documentation/widgets/drawpad.html](http://www.muzzley.com/documentation/widgets/drawpad.html)
