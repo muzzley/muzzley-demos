@@ -81,6 +81,14 @@ With the Swipe Navigator demo you can swipe on your phone to navigate a picutre 
 
 The Switch demo allows you to switch a virtual lamp on and off.
 
+## Webview
+
+[http://www.muzzley.com/documentation/widgets/webview.html](http://www.muzzley.com/documentation/widgets/webview.html)
+
+![](https://github.com/muzzley/muzzley-demos/blob/master/assets/webview.png?raw=true)
+
+The Webview allows you to create a custom widget that fits your needs. This demo shows 3 boxes that you can select and send the color to the participant, you can also get the size of the participant window.
+
 
 # Components #
 
