@@ -55,6 +55,7 @@ form {
   position: relative;
   border: solid 2px #cd1418;
   overflow: hidden;
+  height: 150px;
 }
 
 .log .wrap textarea {
@@ -63,8 +64,8 @@ form {
   
   border: none;
   resize: none;
-  height: 150px;  
   width: 100%;
+  height: 100%;
   color: #cd1418;
   line-height: 1.5;
   
