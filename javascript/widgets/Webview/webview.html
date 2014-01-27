@@ -8,7 +8,7 @@
   <meta name="keywords" content="" />
   <meta http-equiv="cache-control" content="no-cache" />
   <meta http-equiv="pragma" content="no-cache" />
-  <title>Muzzley Volume Component</title>
+  <title>Muzzley Webview Widget</title>
   <link rel="stylesheet" href="webview.css">  
   <link rel="stylesheet" href="log.css">  
   <script src="//cdn.muzzley.com/libraries/js/muzzley-client-0.3.5.min.js"></script>
@@ -21,15 +21,16 @@
     </div>
     <div id="interaction-screen" class="screen">
       <div class="align-left">
-        <div id="color" class="color"></div>
-        <p class="text">Select a color</p>
+        <p class="text">Select a color to show on your smartphone</p>
         <div id="colors" class="colors"></div>
+        <p class="text">Select a color on your smartphone and see it here</p>
+        <div id="color" class="color"></div>
       </div>
       <div class="align-right">
         <div class="content">
-          <p class="text">Want to know the other size window resolution?</p>
-          <p id="result" class="text result"></p>
+          <p class="text">Want to know the other side's window resolution?</p>
           <button id="q" class="button">Query</button>
+          <p id="result" class="text"></p>
         </div>
       </div>
     </div>
@@ -91,7 +92,7 @@
       _log.scrollTop = _log.scrollHeight;
     }
 
-    /* 
+   /* 
       There are two screens in this demo, the DOM elements
       are changed using the following function
     */
@@ -113,6 +114,9 @@
       }
     }
 
+    
+
+    /* list of available colors */
     var colors = [{
       background: '#2ecc71',
       border: '#27ae60'
@@ -139,11 +143,11 @@
     muzzley.connectApp(TOKEN, function(err, activity) {
       if (err) return logger("Connect error: " + err); 
 
+      var timeout;
       var q = document.getElementById('q');
       var result = document.getElementById('result')
       var color = document.getElementById('color');
       var root = document.getElementById('colors');
-
       function query(event) {
         event.preventDefault();
         for (var p in participants) {
@@ -151,7 +155,10 @@
           if (!participant.sendSignal) continue;
           participant.sendSignal('bcda9d7c69763a98.size', null, function (err, res) {
             if (err || !res || !res.success) return result.innerText = 'N/A';
-            result.innerText = res.data.w + ' x ' + res.data.h;
+            var t = timeout = setTimeout(function () {
+              if (t !== timeout) return;
+              result.innerText = '';
+            });
           });
         }
       }

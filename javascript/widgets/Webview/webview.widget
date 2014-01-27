@@ -1,0 +1,173 @@
+/* HTML */
+<p id="title" class="title text">The <b>widget</b> is being prepared for <b>your amusement</b>.</p>
+<div id="content" class="hide">
+  <div id="colors" class="colors"></div>
+  <p class="text">Select a color on your browser and see it here</p>
+  <div id="color" class="color"></div>
+  <div class="content">
+      <p class="text">Want to know the other side's window resolution?</p>
+      <button id="q" class="button">Query</button>
+      <p id="result" class="text"></p>
+  </div>
+</div>
+
+/* Javascript */
+function size() {
+    var w = 0;
+    var h = 0;
+    if (self.innerWidth) {
+        w = self.innerWidth;
+    } else if (document.documentElement && document.documentElement.clientWidth){
+        w = document.documentElement.clientWidth;
+    } else if (document.body) {
+        w = document.body.clientWidth;
+    }
+    if (self.innerHeight) {
+        h = self.innerHeight;
+    } else if (document.documentElement && document.documentElement.clientHeight){
+        h = document.documentElement.clientHeight;
+    } else if (document.body) {
+        h = document.body.clientHeight;
+    }
+    return { w: w, h: h };
+}
+
+var colors = [{
+        background: '#2ecc71',
+        border: '#27ae60'
+    },{
+        background: '#3498db',
+        border: '#2980b9'
+    },{
+        background: '#e74c3c',
+        border: '#c0392b'
+    }];
+    
+function start(element, color) {
+    var c = color;
+    var e = element;
+    return function() {
+        e.style.background = c.border;
+        muzzley.send('bcda9d7c69763a98.color', { color: c });
+    };
+}
+ 
+function end(element, color) {
+    var c = color;
+    var e = element;
+    return function() {
+        e.style.background = c.background;
+    };
+}
+
+var root = document.getElementById('colors');
+for (var c in colors) {
+    var d = document.createElement('div');
+    d.className = 'color';
+    d.style.border = '3px solid ' + colors[c].border;
+    d.style.background = colors[c].background;
+    
+    d.addEventListener('touchend', end(d, colors[c]));
+    d.addEventListener('touchcancel', end(d, colors[c]));
+    d.addEventListener('touchstart', start(d, colors[c]));
+    root.appendChild(d);
+}
+
+var timeout;
+var q = document.getElementById('q');
+var result = document.getElementById('result');
+function startQ(element) {
+    var c = {
+        background: '#3498db',
+        border: '#2980b9'   
+    };
+    var e = element;
+    return function() {
+        e.style.background = c.border;
+        muzzley.send('bcda9d7c69763a98.size', null, function (err, res) {
+            if (err) return result.innerText = 'N/A';
+            result.innerText = res.w + ' x ' + res.h;
+            var t = timeout = setTimeout(function () {
+                if (t !== timeout) return;
+                result.innerText = '';
+            }, 5000);
+        });
+    };
+}
+ 
+function endQ(element) {
+    var c = {
+        background: '#3498db',
+        border: '#2980b9'   
+    };
+    var e = element;
+    return function() {
+        e.style.background = c.background;
+    };
+}
+
+q.addEventListener('touchend', endQ(q));
+q.addEventListener('touchcancel', endQ(q));
+q.addEventListener('touchstart', startQ(q));
+
+var color = document.getElementById('color');
+var title = document.getElementById('title');
+var content = document.getElementById('content');
+muzzley.ready(function () {
+    title.innerText = 'Select a color to show on your browser';
+    content.className = '';
+});
+
+muzzley.on('bcda9d7c69763a98.color', function (res) {
+    color.style.border = '3px solid ' + res.color.border;
+    color.style.background = res.color.background;
+});
+
+muzzley.on('bcda9d7c69763a98.size', function (res, callback) {
+    if (!callback) return;
+    callback(true, null, size());
+});
+
+/* CSS */
+/* apply a natural box layout model to all elements */
+*, *:before, *:after {
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+    box-sizing: border-box;
+}
+body {
+    margin-top: 3em;
+    text-align: center;
+}
+.hide {
+    display: none;
+}
+.colors {
+    margin: auto;
+    display: inline-block;
+}
+.color {
+    margin: .5em;
+    height: 5em;
+    width: 5em;
+    display: inline-block;
+}
+.selected {
+    outline: 1px solid black;
+}
+.content {
+    margin: .5em;
+}
+.text {
+    font-size: 1.2em;
+    font-family:sans-serif;
+}
+.button {
+    display: inline-block;
+    font-size: 1.2em;
+    background: #3498db;
+    color: white;
+    line-height: 1.5em;
+    padding: 4px 16px;
+    border: 3px solid #2980b9;
+}
