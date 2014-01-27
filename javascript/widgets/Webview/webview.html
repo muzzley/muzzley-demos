@@ -155,10 +155,11 @@
           if (!participant.sendSignal) continue;
           participant.sendSignal('bcda9d7c69763a98.size', null, function (err, res) {
             if (err || !res || !res.success) return result.innerText = 'N/A';
+            result.innerText = res.data.w + ' x ' + res.data.h;
             var t = timeout = setTimeout(function () {
               if (t !== timeout) return;
               result.innerText = '';
-            });
+            }, 5000);
           });
         }
       }
