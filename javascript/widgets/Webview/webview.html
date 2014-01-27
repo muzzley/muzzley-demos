@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="Tânia Rocha" content="Muzzley" />
+  <meta name="copyright" content="Muzzley" />
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <title>Muzzley Volume Component</title>
+  <link rel="stylesheet" href="webview.css">  
+  <link rel="stylesheet" href="log.css">  
+  <script src="//cdn.muzzley.com/libraries/js/muzzley-client-0.3.5.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+</head>
+<body>
+  <div id="container" class="container">
+    <div id="pairing-screen" class="screen">
+      <p class="header">Scan to start interact</p>
+    </div>
+    <div id="interaction-screen" class="screen">
+      <div class="align-left">
+        <div id="color" class="color"></div>
+        <p class="text">Select a color</p>
+        <div id="colors" class="colors"></div>
+      </div>
+      <div class="align-right">
+        <div class="content">
+          <p class="text">Want to know the other size window resolution?</p>
+          <p id="result" class="text result"></p>
+          <button id="q" class="button">Query</button>
+        </div>
+      </div>
+    </div>
+    <div class="log">
+      <div id="images" class="log-wrap">
+        <textarea id="detailed" class="detailed"></textarea>  
+      </div>
+      <div id="last" class="last"></div>      
+    </div>
+    
+  </div>
+  
+  <script>
+    function size() {
+      var w = 0;
+      var h = 0;
+      if (self.innerWidth) {
+        w = self.innerWidth;
+      } else if (document.documentElement && document.documentElement.clientWidth){
+        w = document.documentElement.clientWidth;
+      } else if (document.body) {
+        w = document.body.clientWidth;
+      }
+      if (self.innerHeight) {
+        h = self.innerHeight;
+      } else if (document.documentElement && document.documentElement.clientHeight){
+        h = document.documentElement.clientHeight;
+      } else if (document.body) {
+        h = document.body.clientHeight;
+      }
+      return { w: w, h: h };
+    }
+
+    /* 
+      This code is the logger, common in all demos and
+      it is useful only to see the exchanged messages 
+      between the activity and the devices 
+    */
+    function stringify(message) {
+      return JSON.stringify(message, null, 2);
+    }
+
+
+    var _log = document.getElementById('detailed');
+    var _last = document.getElementById('last');
+
+    var logger = function (message) {
+      var last;
+      while (last = _last.lastChild) {
+        _last.removeChild(last);
+      }
+
+      var m = message + '\n';
+      var p = document.createElement('p');
+      p.innerHTML = message;
+      
+      _log.value += m;
+      _last.appendChild(p);
+      _log.scrollTop = _log.scrollHeight;
+    }
+
+    /* 
+      There are two screens in this demo, the DOM elements
+      are changed using the following function
+    */
+    var screens = [];
+    var _screens = document.getElementById('container').childNodes;
+    for (var i = 0; i < _screens.length; ++i) {
+      var e = _screens[i];
+      if (e.className && e.className.indexOf('screen') >= 0) 
+        screens.push(e);      
+    }
+    
+    var showScreen = function (name) {
+      var element = document.getElementById(name);
+      if (element) {
+        for (var i = 0; i < screens.length; ++i) {
+          screens[i].style.display = 'none';
+        }
+        element.style.display = 'block';
+      }
+    }
+
+    var colors = [{
+      background: '#2ecc71',
+      border: '#27ae60'
+    },{
+      background: '#3498db',
+      border: '#2980b9'
+    },{
+      background: '#e74c3c',
+      border: '#c0392b'
+    }];
+        
+
+    /* 
+      After this line is the implementation of the muzzley 
+      interaction
+    */
+    var TOKEN = 'bcda9d7c69763a98';
+    var UUID = '58b54ae9-c94d-4c71-a4f1-6412b2376b1d';
+    muzzley.on('error', function(err) {
+      logger("Error: " + JSON.stringify(err));
+    });
+
+    var participants = { number: 0 };
+    muzzley.connectApp(TOKEN, function(err, activity) {
+      if (err) return logger("Connect error: " + err); 
+
+      var q = document.getElementById('q');
+      var result = document.getElementById('result')
+      var color = document.getElementById('color');
+      var root = document.getElementById('colors');
+
+      function query(event) {
+        event.preventDefault();
+        for (var p in participants) {
+          var participant = participants[p];
+          if (!participant.sendSignal) continue;
+          participant.sendSignal('bcda9d7c69763a98.size', null, function (err, res) {
+            if (err || !res || !res.success) return result.innerText = 'N/A';
+            result.innerText = res.data.w + ' x ' + res.data.h;
+          });
+        }
+      }
+
+      function signal(element, color) {
+        var c = color;
+        var e = element;
+        return function(event) {
+          for (var p in participants) {
+            var participant = participants[p];
+            if (!participant.sendSignal) continue;
+            participant.sendSignal('bcda9d7c69763a98.color', { color: c });
+          }          
+        };      
+      }
+
+      for (var c in colors) {
+        var d = document.createElement('div');
+        d.className = 'color';
+        d.style.border = '3px solid ' + colors[c].border;
+        d.style.background = colors[c].background;
+        root.appendChild(d);
+        d.onclick = signal(d, colors[c]);
+      }
+      q.onclick = query;
+      
+      logger('Activity created - ' + activity.activityId);      
+      var img = document.createElement('img');
+      img.className = 'qrcode'
+      img.setAttribute('src', activity.qrCodeUrl);
+      img.setAttribute('alt', 'Qr code');
+      screens[0].appendChild(img);
+      
+      activity.on('participantJoin', function(participant) {
+        showScreen('interaction-screen');
+
+        participants.number++;
+        participants[participant.id] = participant
+        logger('Participant join - id:' + participant.id + ' name: ' + participant.name);
+
+        participant.on('signalingMessage', function(type, data, callback) {
+          if (callback) {
+            logger('Rpc "' + type + '" - ' + stringify(data || {}));
+          } else {
+            logger('Signal "' + type + '" - ' + stringify(data || {}));
+          }
+          // an action was received check if it is to change color
+          if (type === 'bcda9d7c69763a98.color') {
+            color.style.background = data.color.background;
+            color.style.border = '3px solid ' + data.color.border;
+          } else if (type === 'bcda9d7c69763a98.size' && callback) {
+            callback(true, 'success', size());
+          }
+        });
+
+        participant.on('quit', function () {        
+          participants.number--;
+          delete participants[participant.id];
+          logger('Participant quit - id:' + participant.id);
+          if (participants.number === 0) {
+            showScreen('pairing-screen');
+          }
+        });
+
+        participant.changeWidget({
+            widget: 'webview',
+            params: { 
+              uuid: UUID,
+              orientation: 'portrait' 
+            }            
+          }, function (err) {
+            if (err) return logger('Change Widget Error: ' + err);
+            logger('Widget changed to webview ' + UUID);
+        });
+      });
+    });
+    showScreen('pairing-screen');
+</script>
+</body>
+</html>
