@@ -21,9 +21,9 @@
       <div class="center">
         <p>Use your phone to scan the different codes</p>
         <div id='images' class="img-wrap">
-          <img src="http://www.muzzley.com/qrcode/aaaaaaaaaaaa">
-          <img src="http://www.muzzley.com/qrcode/bbbbbbbbbbbb">
-          <img src="http://www.muzzley.com/qrcode/cccccccccccc">
+          <img id="ean13" src="assets/ean.png">
+          <img id="qrcode" src="assets/qrcode.png">
+          <img id="pdf417" src="assets/pdf417.jpg">
         </div>
       </div>
     </div>
@@ -44,16 +44,6 @@
     var _first = document.getElementById('first');
     var _second = document.getElementById('second');
     _second.style.display = 'none';
-
-    var _images = [];
-    var local = document.getElementById('images').childNodes;
-    
-    for (var i = 0; i < local.length; ++i) {
-      var e = local[i];
-      if (e.nodeName.toLowerCase() === 'img') {
-        _images.push(e);
-      }
-    }
         
     var logger = function (message) {
       var last;
@@ -116,14 +106,12 @@
         participant.on('action', function(action) {
           logger('Action received - ' + JSON.stringify(action, null, 4));
           broadcast(1, participant);          
-          var value = action.v;
-          if (typeof value === 'object') {
-            value = value.result;
+          var value = 'qrcode';
+          if (typeof action.v === 'object') {
+            value = action.v.format;
           } 
-          var i = value.charCodeAt(0) - reference;
-          if (i < 0 || i > _images.length - 1) return;
-
-          var image = _images[i];
+          
+          var image = document.getElementById(value);
           image.className = 'outline';
           setTimeout(function () {
             image.className = '';

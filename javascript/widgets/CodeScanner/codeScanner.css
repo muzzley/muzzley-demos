@@ -95,8 +95,8 @@ form {
 
 .img-wrap img {
   width: 100px;
-  height: 100px; 
   margin: 10px 35px;
+  vertical-align: middle;
 }
 
 
