@@ -8,7 +8,7 @@
   <meta name="keywords" content="" />
   <meta http-equiv="cache-control" content="no-cache" />
   <meta http-equiv="pragma" content="no-cache" />
-  <title>Muzzley Volume Component</title>
+  <title>Muzzley Code Scanner</title>
   <link rel="stylesheet" href="codeScanner.css">
   <script src="//cdn.muzzley.com/libraries/js/muzzley-client-0.3.5.min.js"></script>
 </head>
@@ -116,7 +116,11 @@
         participant.on('action', function(action) {
           logger('Action received - ' + JSON.stringify(action, null, 4));
           broadcast(1, participant);          
-          var i = action.v.charCodeAt(0) - reference;
+          var value = action.v;
+          if (typeof value === 'object') {
+            value = value.result;
+          } 
+          var i = value.charCodeAt(0) - reference;
           if (i < 0 || i > _images.length - 1) return;
 
           var image = _images[i];
@@ -138,7 +142,13 @@
 
         participant.changeWidget({
             widget: 'codeScanner',
-            params: { treshold: 1000, orientation: 'portrait' }, 
+            params: { 
+              treshold: 1000, 
+              orientation: 'portrait',
+              label: 'Scan',
+              formats: ["muzzley", "ean-8", "ean-13", "code 39", "code 93", 
+                "code 128", "qr code", "pdf417"] 
+            }, 
             components: [{c: 'vibration'}]
           }, function (err) {
           if (err) return logger('Change Widget Error: ' + err);
