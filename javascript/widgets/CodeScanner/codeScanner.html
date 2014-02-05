@@ -29,13 +29,13 @@
     </div>
     <div class="log">
       <div id="images" class="log-wrap">
-        <textarea id="detailed" class="detailed"></textarea>  
+        <textarea id="detailed" class="detailed"></textarea>
       </div>
-      <div id="last" class="last"></div>      
+      <div id="last" class="last"></div>
     </div>
-    
+
   </div>
-  
+
   <script>
     var token = 'bcda9d7c69763a98';
 
@@ -44,22 +44,22 @@
     var _first = document.getElementById('first');
     var _second = document.getElementById('second');
     _second.style.display = 'none';
-        
+
     var logger = function (message) {
       var last;
       while (last = _last.lastChild) {
         _last.removeChild(last);
       }
-      
+
       var m = message + '\n';
       var p = document.createElement('p');
       p.innerHTML = message;
-      
+
       _last.appendChild(p);
       _log.value += m;
       _log.scrollTop = _log.scrollHeight;
     }
-    
+
     muzzley.on('error', function(err) {
       logger("Error: " + JSON.stringify(err));
     });
@@ -67,19 +67,19 @@
     var number = 0
     var participants = { };
     muzzley.connectApp(token, function(err, activity) {
-      if (err) return logger("Connect error: " + err); 
-      
+      if (err) return logger("Connect error: " + err);
+
       function broadcast(value, participant) {
-        if (participant) 
+        if (participant)
           return participant.sendSignal('signalComponent', {
             'a': 'vibrate',
             'c': 'vibration',
             'd': { 'v': value }
           });
-        
+
         for (var key in participants) {
           var p = participants[key];
-          p.sendSignal('signalComponent', {            
+          p.sendSignal('signalComponent', {
             'a': 'vibrate',
             'c': 'vibration',
             'd': { 'v': value }
@@ -93,7 +93,7 @@
       img.setAttribute('src', activity.qrCodeUrl);
       img.setAttribute('alt', 'Qr code');
       _first.appendChild(img);
-      
+
       activity.on('participantJoin', function(participant) {
         first.style.display = 'none';
         second.style.display = 'block';
@@ -105,12 +105,12 @@
         var reference = 'a'.charCodeAt(0);
         participant.on('action', function(action) {
           logger('Action received - ' + JSON.stringify(action, null, 4));
-          broadcast(1, participant);          
+          broadcast(1, participant);
           var value = 'qrcode';
           if (typeof action.v === 'object') {
             value = action.v.format;
-          } 
-          
+          }
+
           var image = document.getElementById(value);
           image.className = 'outline';
           setTimeout(function () {
@@ -130,13 +130,13 @@
 
         participant.changeWidget({
             widget: 'codeScanner',
-            params: { 
-              treshold: 1000, 
+            params: {
+              treshold: 1000,
               orientation: 'portrait',
               label: 'Scan',
-              formats: ["muzzley", "ean-8", "ean-13", "code 39", "code 93", 
-                "code 128", "qr code", "pdf417"] 
-            }, 
+              formats: ["muzzley", "ean8", "ean13", "code39", "code93",
+                "code128", "qrcode", "pdf417"]
+            },
             components: [{c: 'vibration'}]
           }, function (err) {
           if (err) return logger('Change Widget Error: ' + err);
