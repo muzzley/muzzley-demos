@@ -125,9 +125,12 @@
             var paint;
 
             // Configure pen style
-            context.strokeStyle = "#e10d24";
-            context.lineJoin = "round";
-            context.lineWidth = 4;
+            function setupPenStyle() {
+                context.strokeStyle = "#e10d24";
+                context.lineJoin = "round";
+                context.lineWidth = 4;
+            }
+            setupPenStyle();
             
             /**
             * Read the object received, and draw according the type of acion. 
@@ -166,6 +169,7 @@
                 context.fillRect(0, 0, canvasWidth, canvasHeight); // Fill in the canvas with white
                 canvas.width = canvas.width; // clears the canvas 
                 textArea2.style.opacity = 0;
+                setupPenStyle();
             }
 
             /* Display lightBox with formated JSON message, when the action message is received */
