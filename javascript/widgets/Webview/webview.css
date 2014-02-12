@@ -33,7 +33,7 @@ body {
 .color {
   display: inline-block;
   margin: .5em;
-  height: 3em;
+  height: 2em;
   width: 3em;
   border: 3px solid none;
 }
