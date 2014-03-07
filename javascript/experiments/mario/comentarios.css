@@ -1,0 +1,51 @@
+#about {
+	TEXT-ALIGN: center; MARGIN: 0px auto; WIDTH: 775px; COLOR: #fff; PADDING-TOP: 500px
+}
+#comentarios {
+	BORDER-BOTTOM: #6fa3ff 2px solid; TEXT-ALIGN: left; BORDER-LEFT: #6fa3ff 2px solid; MARGIN: 20px auto 0px; PADDING-LEFT: 25px; WIDTH: 750px; BACKGROUND: #7cb4fc; HEIGHT: auto; BORDER-TOP: #6fa3ff 2px solid; BORDER-RIGHT: #6fa3ff 2px solid
+}
+#comTitulo {
+	TEXT-ALIGN: center; MARGIN: 8px 0px 10px; FONT-SIZE: 32px
+}
+#comCount {
+	FONT-SIZE: 22px
+}
+.comentario {
+	PADDING-BOTTOM: 7px; PADDING-LEFT: 7px; WIDTH: 500px; PADDING-RIGHT: 7px; MARGIN-BOTTOM: 15px; BACKGROUND: #6fa3ff; FLOAT: left; COLOR: #fff; FONT-SIZE: 14px; OVERFLOW: hidden; FONT-WEIGHT: bold; TEXT-DECORATION: none; PADDING-TOP: 7px
+}
+.comCuerpo {
+	MARGIN-LEFT: 13px; FONT-SIZE: 13px; FONT-WEIGHT: normal
+}
+.comInfo {
+	WIDTH: 200px; FLOAT: left; COLOR: #bedafe; MARGIN-LEFT: 10px
+}
+.comNumero {
+	WIDTH: 63px; FLOAT: left; FONT-SIZE: 34px
+}
+.comFecha {
+	WIDTH: 117px; FLOAT: left; FONT-SIZE: 14px; PADDING-TOP: 3px
+}
+.comClear {
+	CLEAR: both
+}
+.comFormTitulo {
+	MARGIN-BOTTOM: 5px; FONT-SIZE: 18px
+}
+.comFormNombre {
+	MARGIN: 0px 0px 1px 15px
+}
+.comFormEmail {
+	MARGIN: 4px 0px 1px 15px
+}
+.comFormInput {
+	BORDER-BOTTOM: #6fa3ff 2px solid; BORDER-LEFT: #6fa3ff 2px solid; PADDING-BOTTOM: 3px; PADDING-LEFT: 2px; WIDTH: 180px; PADDING-RIGHT: 2px; BACKGROUND: #93c0fd; COLOR: #555; MARGIN-LEFT: 15px; BORDER-TOP: #6fa3ff 2px solid; BORDER-RIGHT: #6fa3ff 2px solid; PADDING-TOP: 3px
+}
+.comFormComentario {
+	MARGIN: 6px 0px 0px 15px
+}
+.comFormTextarea {
+	BORDER-BOTTOM: #6fa3ff 2px solid; BORDER-LEFT: #6fa3ff 2px solid; PADDING-BOTTOM: 4px; PADDING-LEFT: 4px; WIDTH: 280px; PADDING-RIGHT: 4px; BACKGROUND: #93c0fd; HEIGHT: 90px; COLOR: #555; MARGIN-LEFT: 15px; BORDER-TOP: #6fa3ff 2px solid; BORDER-RIGHT: #6fa3ff 2px solid; PADDING-TOP: 4px
+}
+.comFormSubmit {
+	BORDER-BOTTOM: #6fa3ff 2px solid; BORDER-LEFT: #6fa3ff 2px solid; PADDING-BOTTOM: 2px; MARGIN: 6px 0px 0px 15px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; FONT-FAMILY: "Trebuchet MS", Trebuchet, Verdana, Arial, Helvetica, sans-serif; BACKGROUND: #87b9fc; COLOR: #fff; BORDER-TOP: #6fa3ff 2px solid; BORDER-RIGHT: #6fa3ff 2px solid; PADDING-TOP: 2px
+}

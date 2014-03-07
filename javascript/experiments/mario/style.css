@@ -1,0 +1,639 @@
+BODY {
+	MARGIN: 0px; WIDTH: 100%; FONT-FAMILY: "Trebuchet MS", Trebuchet, Verdana, Arial, Helvetica, sans-serif;  HEIGHT: 100%; COLOR: #222; FONT-SIZE: 16px
+}
+#imgsPrecargar {
+	WIDTH: 0px; HEIGHT: 0px; OVERFLOW: auto;
+}
+#imgsPrecargarBar {
+	BORDER-BOTTOM: #79b5fb 8px solid; POSITION: absolute; BORDER-LEFT: #79b5fb 8px solid; MARGIN-TOP: -20px; WIDTH: 250px; BACKGROUND: #99d5ff; HEIGHT: 25px; MARGIN-LEFT: -133px; OVERFLOW: hidden; BORDER-TOP: #79b5fb 8px solid; TOP: 50%; BORDER-RIGHT: #79b5fb 8px solid; LEFT: 50%
+}
+#imgsPreloadImgs {
+	POSITION: absolute; TEXT-ALIGN: center; MARGIN-TOP: -38px; WIDTH: 250px; HEIGHT: 20px; MARGIN-LEFT: -125px; OVERFLOW: hidden; TOP: 50%; LEFT: 50%
+}
+#imgsPrecargarBarC {
+	Z-INDEX: 1; POSITION: absolute; TEXT-ALIGN: right; MARGIN: 0px; WIDTH: 0%; BACKGROUND: url(imgs/background3.gif); HEIGHT: 25px; OVERFLOW: hidden; PADDING-TOP: 2px
+}
+#trace {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 400px; HEIGHT: 100%; OVERFLOW: hidden; TOP: 0px;
+}
+#mario {
+	POSITION: absolute
+}
+#contenedor {
+	POSITION: absolute; TOP: 350px; LEFT: 50%
+}
+#inicio {
+	Z-INDEX: 4; POSITION: absolute; BACKGROUND-COLOR: #000; WIDTH: 510px; DISPLAY: none; HEIGHT: 450px; OVERFLOW: hidden; TOP: -225px; LEFT: -255px
+}
+#menu {
+	Z-INDEX: 4; POSITION: absolute; WIDTH: 510px; HEIGHT: 450px; OVERFLOW: hidden; TOP: -225px; LEFT: -255px
+}
+#gameOver {
+	Z-INDEX: 4; POSITION: absolute; WIDTH: 510px; HEIGHT: 450px; OVERFLOW: hidden; TOP: -225px; LEFT: -255px
+}
+#gameOver {
+	BACKGROUND-COLOR: #000; DISPLAY: none
+}
+#gameOverTxt {
+	POSITION: absolute; TEXT-ALIGN: center; WIDTH: 100%; BOTTOM: 195px
+}
+#juego {
+	POSITION: absolute; BACKGROUND-COLOR: #5c94fc; WIDTH: 510px; HEIGHT: 450px; OVERFLOW: hidden; TOP: -225px; LEFT: -255px
+}
+#interfaz {
+	Z-INDEX: 4; POSITION: absolute; WIDTH: 510px; HEIGHT: 450px; OVERFLOW: hidden; TOP: -225px; LEFT: -255px
+}
+#resize {
+	Z-INDEX: 5; POSITION: absolute; TEXT-ALIGN: center; WIDTH: 510px; HEIGHT: 450px; FONT-SIZE: 270px; OVERFLOW: hidden; TOP: -225px; LEFT: -255px
+}
+#resizeB {
+	Z-INDEX: 5; BORDER-BOTTOM: #c0c0c0 3px solid; POSITION: absolute; BORDER-LEFT: #c0c0c0 3px solid; BACKGROUND-COLOR: #fff; WIDTH: 510px; DISPLAY: none; HEIGHT: 450px; BORDER-TOP: #c0c0c0 3px solid; TOP: -225px; BORDER-RIGHT: #c0c0c0 3px solid; LEFT: -255px
+}
+.display {
+	DISPLAY: none
+}
+.position {
+	POSITION: absolute
+}
+#signo {
+	POSITION: absolute; WIDTH: 32px; HEIGHT: 32px
+}
+.cubo {
+	POSITION: absolute; WIDTH: 32px; HEIGHT: 32px
+}
+#mapax {
+	POSITION: absolute; BACKGROUND-COLOR: #c3c3c3; WIDTH: 1%; HEIGHT: 1%; VISIBILITY: hidden
+}
+#texto A {
+	FONT-FAMILY: Calibri; FONT-WEIGHT: bold; TEXT-DECORATION: none
+}
+.letras {
+	MARGIN-LEFT: 2px
+}
+#marioTxt {
+	POSITION: absolute; TOP: 16px; LEFT: 50px
+}
+#puntosTxt {
+	POSITION: absolute; TOP: 32px; LEFT: 50px
+}
+#monedasTxt {
+	POSITION: absolute; TOP: 32px; LEFT: 180px
+}
+#mundoTxt {
+	POSITION: absolute; TOP: 16px; LEFT: 288px
+}
+#mundoNTxt {
+	POSITION: absolute; TEXT-ALIGN: center; WIDTH: 80px; TOP: 32px; LEFT: 288px
+}
+#tiempoTxt {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 160px; TOP: 16px; LEFT: 300px
+}
+#tiempoNTxt {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 160px; TOP: 16px; LEFT: 300px
+}
+#tiempoNTxt {
+	TOP: 32px
+}
+.puntos {
+	TEXT-ALIGN: center
+}
+#resize #derecha {
+	Z-INDEX: 2; POSITION: absolute; BACKGROUND-COLOR: #ddd; WIDTH: 10px; HEIGHT: 100%; RIGHT: 0px
+}
+#resize #abajo {
+	POSITION: absolute; BACKGROUND-COLOR: #ddd; WIDTH: 100%; BOTTOM: 0px; HEIGHT: 10px; OVERFLOW: hidden; LEFT: 0px
+}
+#resize #abajoDerecha {
+	Z-INDEX: 2; POSITION: absolute; BACKGROUND-COLOR: transparent; WIDTH: 14px; BOTTOM: 0px; HEIGHT: 14px; OVERFLOW: hidden; RIGHT: 0px
+}
+#resizeInfoC {
+	POSITION: absolute; DISPLAY: none; TOP: 50%; LEFT: 50%
+}
+#resizeInfoFondo {
+	BORDER-BOTTOM: 2px solid; POSITION: absolute; BORDER-LEFT: 2px solid; BACKGROUND-COLOR: #000; WIDTH: 120px; HEIGHT: 50px; OVERFLOW: hidden; BORDER-TOP: 2px solid; TOP: -25px; BORDER-RIGHT: 2px solid; LEFT: -60px
+}
+#resizeInfo {
+	POSITION: absolute; TEXT-ALIGN: center; WIDTH: 120px; HEIGHT: 20px; FONT-SIZE: 1px; TOP: -3px; LEFT: -60px
+}
+#mario1 {
+	WIDTH: 24px; HEIGHT: 32px
+}
+#mario2 {
+	WIDTH: 24px; HEIGHT: 32px
+}
+#mario3 {
+	WIDTH: 32px; HEIGHT: 32px
+}
+#mario4 {
+	WIDTH: 32px; HEIGHT: 32px
+}
+#mario5 {
+	WIDTH: 28px; HEIGHT: 32px
+}
+#mario6 {
+	WIDTH: 28px; HEIGHT: 32px
+}
+#corriendo1 {
+	WIDTH: 30px; HEIGHT: 32px
+}
+#corriendo2 {
+	WIDTH: 30px; HEIGHT: 32px
+}
+#corriendo1_1 {
+	WIDTH: 30px; HEIGHT: 32px
+}
+#corriendo1_2 {
+	WIDTH: 30px; HEIGHT: 32px
+}
+#corriendo2_1 {
+	WIDTH: 30px; HEIGHT: 32px
+}
+#corriendo1_2 {
+	WIDTH: 30px; HEIGHT: 32px
+}
+.gmario {
+	WIDTH: 32px; HEIGHT: 64px
+}
+.smario {
+	WIDTH: 32px; HEIGHT: 64px
+}
+#mario {
+	Z-INDEX: 3; POSITION: absolute
+}
+#mundoInicio {
+	POSITION: absolute; TEXT-ALIGN: center; WIDTH: 100%; TOP: 150px; LEFT: 0px
+}
+#vidas {
+	POSITION: absolute; TEXT-ALIGN: center; WIDTH: 100%; TOP: 200px; LEFT: 0px
+}
+#sonidos {
+	VISIBILITY: hidden
+}
+#bichosDiv {
+	Z-INDEX: 1
+}
+#jugar {
+	POSITION: absolute; WIDTH: 220px; LEFT: 175px
+}
+#cargarMapa {
+	POSITION: absolute; WIDTH: 220px; LEFT: 175px
+}
+#crearMapa {
+	POSITION: absolute; WIDTH: 220px; LEFT: 175px
+}
+#puntosTop {
+	POSITION: absolute; WIDTH: 220px; LEFT: 175px
+}
+#jugarInstrucciones {
+	POSITION: absolute; WIDTH: 220px; BOTTOM: 235px; LEFT: 175px
+}
+#puntosTop {
+	BOTTOM: 60px
+}
+#crearMapa {
+	BOTTOM: 110px
+}
+#cargarMapa {
+	BOTTOM: 145px
+}
+#jugar {
+	BOTTOM: 180px
+}
+#hongoSeleccionar {
+	POSITION: absolute; WIDTH: 16px; BOTTOM: 180px; HEIGHT: 32px; LEFT: 145px
+}
+#contenedorE {
+	POSITION: absolute; TOP: 250px; LEFT: 50%
+}
+#contenedorE {
+	DISPLAY: none
+}
+#inicioE {
+	Z-INDEX: 4; POSITION: absolute; BACKGROUND-COLOR: #5c94fc; WIDTH: 510px; HEIGHT: 450px; OVERFLOW: hidden; TOP: -225px; LEFT: -255px
+}
+#editorTxt {
+	Z-INDEX: 999; POSITION: absolute; TEXT-ALIGN: center; WIDTH: 200px; HEIGHT: 20px; COLOR: #fff; FONT-SIZE: 14px; PADDING-TOP: 4px; LEFT: 155px
+}
+#editorTxt A {
+	COLOR: #fff; FONT-SIZE: 16px; CURSOR: pointer; FONT-WEIGHT: bold; TEXT-DECORATION: underline
+}
+#mapasBox {
+	POSITION: absolute; BACKGROUND-COLOR: #69a5fb; WIDTH: 430px; HEIGHT: 360px; OVERFLOW: auto; TOP: 65px; LEFT: 40px
+}
+#mapasSort {
+	POSITION: absolute; TEXT-ALIGN: center; BACKGROUND-COLOR: #528ffb; WIDTH: 420px; HEIGHT: 325px; TOP: 30px; LEFT: 5px
+}
+.mapaSort {
+	POSITION: absolute; BACKGROUND-COLOR: #3a80fb; WIDTH: 410px; HEIGHT: 60px; OVERFLOW: hidden; TOP: 10px; LEFT: 10px
+}
+.mapaNombre {
+	POSITION: absolute; TEXT-ALIGN: center; WIDTH: 240px; HEIGHT: 16px; TOP: 22px; LEFT: 30px
+}
+.mapaSortLeft {
+	BACKGROUND-IMAGE: url(imgs/editor/mapaSortLeft.gif); POSITION: absolute; WIDTH: 30px; HEIGHT: 60px; TOP: 0px; CURSOR: move; LEFT: 0px
+}
+.mapaEditar {
+	POSITION: absolute; TEXT-ALIGN: center; BACKGROUND-COLOR: #5c94fc; WIDTH: 125px; HEIGHT: 18px; RIGHT: 5px; PADDING-TOP: 3px
+}
+.mapaBorrar {
+	POSITION: absolute; TEXT-ALIGN: center; BACKGROUND-COLOR: #5c94fc; WIDTH: 125px; HEIGHT: 18px; RIGHT: 5px; PADDING-TOP: 3px
+}
+.mapaEditar {
+	TOP: 6px
+}
+.mapaBorrar {
+	BOTTOM: 6px
+}
+#sortDivisor {
+	POSITION: absolute; WIDTH: 420px; DISPLAY: none; BACKGROUND: url(imgs/editor/barra.gif) no-repeat; HEIGHT: 10px; LEFT: 5px
+}
+#mapasBoxTop {
+	POSITION: absolute; BACKGROUND-COLOR: #69a5fb; WIDTH: 430px; HEIGHT: 30px; OVERFLOW: hidden; TOP: 65px; LEFT: 40px
+}
+#configBoton {
+	POSITION: absolute; TEXT-ALIGN: center; BACKGROUND-COLOR: #528ffb; WIDTH: 50px; HEIGHT: 17px !important; OVERFLOW: hidden; TOP: 5px; PADDING-TOP: 2px !important; LEFT: 10px
+}
+#mapasAgregar {
+	POSITION: absolute; TEXT-ALIGN: center; BACKGROUND-COLOR: #528ffb; WIDTH: 50px; HEIGHT: 17px !important; OVERFLOW: hidden; TOP: 5px; PADDING-TOP: 2px !important; LEFT: 370px
+}
+#mapasTxt {
+	POSITION: absolute; TEXT-ALIGN: center; PADDING-BOTTOM: 2px !important; BACKGROUND-COLOR: #528ffb; PADDING-LEFT: 0px !important; WIDTH: 310px; PADDING-RIGHT: 0px !important; HEIGHT: 16px; TOP: 5px; PADDING-TOP: 1px !important; LEFT: 60px
+}
+#configGeneral {
+	DISPLAY: none
+}
+#mapaEdit {
+	DISPLAY: none
+}
+#configGeneralBox {
+	POSITION: absolute; BACKGROUND-COLOR: #69a5fb; WIDTH: 370px; HEIGHT: 230px; OVERFLOW: hidden; TOP: 125px; LEFT: 70px
+}
+#mapaEditBox {
+	POSITION: absolute; BACKGROUND-COLOR: #69a5fb; WIDTH: 370px; HEIGHT: 230px; OVERFLOW: hidden; TOP: 125px; LEFT: 70px
+}
+#configGeneralTop {
+	POSITION: absolute; BACKGROUND-COLOR: #69a5fb; WIDTH: 370px; DISPLAY: none; HEIGHT: 30px; OVERFLOW: hidden; TOP: 125px; LEFT: 70px
+}
+#mapaEditTop {
+	POSITION: absolute; BACKGROUND-COLOR: #69a5fb; WIDTH: 370px; DISPLAY: none; HEIGHT: 30px; OVERFLOW: hidden; TOP: 125px; LEFT: 70px
+}
+#configGeneralTxt {
+	POSITION: absolute; TEXT-ALIGN: center; PADDING-BOTTOM: 2px !important; BACKGROUND-COLOR: #528ffb; PADDING-LEFT: 0px !important; WIDTH: 300px; PADDING-RIGHT: 0px !important; HEIGHT: 16px; TOP: 5px; PADDING-TOP: 1px !important; LEFT: 10px
+}
+#mapaEditTxt {
+	POSITION: absolute; TEXT-ALIGN: center; PADDING-BOTTOM: 2px !important; BACKGROUND-COLOR: #528ffb; PADDING-LEFT: 0px !important; WIDTH: 300px; PADDING-RIGHT: 0px !important; HEIGHT: 16px; TOP: 5px; PADDING-TOP: 1px !important; LEFT: 10px
+}
+#mapaEditTxt {
+	WIDTH: 350px
+}
+#configGeneralEsc {
+	POSITION: absolute; TEXT-ALIGN: center; BACKGROUND-COLOR: #528ffb; WIDTH: 50px; HEIGHT: 17px !important; OVERFLOW: hidden; TOP: 5px; PADDING-TOP: 2px !important; LEFT: 310px
+}
+#configForm {
+	POSITION: absolute; WIDTH: 370px; HEIGHT: 160px; OVERFLOW: hidden; TOP: 50px; LEFT: 0px
+}
+#editForm1 {
+	POSITION: absolute; WIDTH: 370px; HEIGHT: 160px; OVERFLOW: hidden; TOP: 50px; LEFT: 0px
+}
+#editForm2 {
+	POSITION: absolute; WIDTH: 370px; HEIGHT: 160px; OVERFLOW: hidden; TOP: 50px; LEFT: 0px
+}
+#editForm2 {
+	DISPLAY: none
+}
+#configFormD1 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 180px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 19px; LEFT: 0px
+}
+#configFormD2 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 180px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 19px; LEFT: 0px
+}
+#configFormD3 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 180px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 19px; LEFT: 0px
+}
+#configFormD4 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 180px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 19px; LEFT: 0px
+}
+#configFormD5 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 180px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 19px; LEFT: 0px
+}
+#configFormD6 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 180px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 19px; LEFT: 0px
+}
+#configFormD7 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 180px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 19px; LEFT: 0px
+}
+#editFormD5 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 180px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 19px; LEFT: 0px
+}
+#editFormD6 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 180px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 19px; LEFT: 0px
+}
+#editFormD7 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 180px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 19px; LEFT: 0px
+}
+#editFormD8 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 180px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 19px; LEFT: 0px
+}
+#editFormD9 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 180px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 19px; LEFT: 0px
+}
+#editFormD10 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 180px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 19px; LEFT: 0px
+}
+#editFormD11 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 180px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 19px; LEFT: 0px
+}
+#configFormD2 {
+	TEXT-ALIGN: left; HEIGHT: 25px; LEFT: 190px
+}
+#configFormD4 {
+	TEXT-ALIGN: left; HEIGHT: 25px; LEFT: 190px
+}
+#configFormD6 {
+	TEXT-ALIGN: left; HEIGHT: 25px; LEFT: 190px
+}
+#configFormD7 {
+	TEXT-ALIGN: left; HEIGHT: 25px; LEFT: 190px
+}
+#editFormD6 {
+	TEXT-ALIGN: left; HEIGHT: 25px; LEFT: 190px
+}
+#editFormD8 {
+	TEXT-ALIGN: left; HEIGHT: 25px; LEFT: 190px
+}
+#editFormD10 {
+	TEXT-ALIGN: left; HEIGHT: 25px; LEFT: 190px
+}
+#editFormD11 {
+	TEXT-ALIGN: left; HEIGHT: 25px; LEFT: 190px
+}
+#configFormD2 {
+	TOP: 16px
+}
+#editFormD6 {
+	TOP: 16px
+}
+#configFormD3 {
+	TOP: 54px
+}
+#editFormD7 {
+	TOP: 54px
+}
+#configFormD4 {
+	TOP: 51px
+}
+#editFormD8 {
+	TOP: 51px
+}
+#configFormD5 {
+	TOP: 89px
+}
+#editFormD9 {
+	TOP: 89px
+}
+#configFormD6 {
+	TOP: 86px
+}
+#editFormD10 {
+	TOP: 86px
+}
+#configFormD7 {
+	TEXT-ALIGN: center; WIDTH: 370px; TOP: 123px; LEFT: 0px
+}
+#editFormD11 {
+	TEXT-ALIGN: center; WIDTH: 370px; TOP: 123px; LEFT: 0px
+}
+#editFormD6Inp {
+	TEXT-TRANSFORM: uppercase
+}
+#editFormD1 {
+	POSITION: absolute; WIDTH: 370px; HEIGHT: 25px; OVERFLOW: hidden; TOP: 0px; LEFT: 0px
+}
+#editFormD2 {
+	POSITION: absolute; WIDTH: 370px; HEIGHT: 25px; OVERFLOW: hidden; TOP: 0px; LEFT: 0px
+}
+#editFormD3 {
+	POSITION: absolute; WIDTH: 370px; HEIGHT: 25px; OVERFLOW: hidden; TOP: 0px; LEFT: 0px
+}
+#editFormD4 {
+	POSITION: absolute; WIDTH: 370px; HEIGHT: 25px; OVERFLOW: hidden; TOP: 0px; LEFT: 0px
+}
+#editFormD1 {
+	TOP: 14.4px
+}
+#editFormD2 {
+	TOP: 50.8px
+}
+#editFormD3 {
+	TOP: 87.2px
+}
+#editFormD4 {
+	TOP: 123.6px
+}
+.textInput {
+	BORDER-BOTTOM: #216df3 1px solid; BORDER-LEFT: #216df3 1px solid; BACKGROUND-COLOR: #5c94fc; WIDTH: 130px; HEIGHT: 19px; COLOR: #fff; BORDER-TOP: #216df3 1px solid; BORDER-RIGHT: #216df3 1px solid
+}
+.textInput2 {
+	BORDER-BOTTOM: #216df3 1px solid; BORDER-LEFT: #216df3 1px solid; BACKGROUND-COLOR: #67a5fb; WIDTH: 80px; HEIGHT: 19px; COLOR: #fff; BORDER-TOP: #216df3 1px solid; BORDER-RIGHT: #216df3 1px solid
+}
+.boton {
+	BORDER-BOTTOM: #216df3 1px solid; TEXT-ALIGN: center; BORDER-LEFT: #216df3 1px solid; BACKGROUND-COLOR: #5c94fc; WIDTH: 80px; HEIGHT: 17px; COLOR: #fff; BORDER-TOP: #216df3 1px solid; BORDER-RIGHT: #216df3 1px solid; PADDING-TOP: 2px
+}
+.boton2 {
+	BORDER-BOTTOM: #216df3 1px solid; TEXT-ALIGN: center; BORDER-LEFT: #216df3 1px solid; BACKGROUND-COLOR: #5c94fc; WIDTH: 80px; HEIGHT: 17px; COLOR: #fff; BORDER-TOP: #216df3 1px solid; BORDER-RIGHT: #216df3 1px solid; PADDING-TOP: 2px
+}
+.boton2 {
+	WIDTH: 220px
+}
+.select {
+	BORDER-BOTTOM: #216df3 1px solid; BORDER-LEFT: #216df3 1px solid; BACKGROUND-COLOR: #5c94fc; WIDTH: 130px; HEIGHT: 22px; COLOR: #fff; BORDER-TOP: #216df3 1px solid; BORDER-RIGHT: #216df3 1px solid
+}
+.select2 {
+	BORDER-BOTTOM: #216df3 1px solid; BORDER-LEFT: #216df3 1px solid; BACKGROUND-COLOR: #67a5fb; WIDTH: 102px; HEIGHT: 22px; COLOR: #fff; BORDER-TOP: #216df3 1px solid; BORDER-RIGHT: #216df3 1px solid
+}
+#modificarMapa {
+	POSITION: absolute; WIDTH: 510px; HEIGHT: 450px; TOP: 0px; LEFT: 0px
+}
+#modificarMapaCubos {
+	POSITION: absolute; WIDTH: 510px; HEIGHT: 450px; TOP: 0px; LEFT: 0px
+}
+#modificarMapaBichos {
+	POSITION: absolute; WIDTH: 510px; HEIGHT: 450px; TOP: 0px; LEFT: 0px
+}
+#modificarMapaFiguras {
+	POSITION: absolute; WIDTH: 510px; HEIGHT: 450px; TOP: 0px; LEFT: 0px
+}
+#modificarMapa {
+	DISPLAY: none; OVERFLOW: hidden
+}
+#modificarMapaMenu {
+	Z-INDEX: 4; POSITION: absolute; BACKGROUND-COLOR: #5c94fc; WIDTH: 250px; DISPLAY: none; HEIGHT: 450px; OVERFLOW: hidden; TOP: -225px; LEFT: 135px
+}
+#mapaMenuTxt {
+	POSITION: absolute; TEXT-ALIGN: center; WIDTH: 250px; HEIGHT: 19px; OVERFLOW: hidden; TOP: 0px; PADDING-TOP: 3px; LEFT: 0px
+}
+#herramientas {
+	BORDER-BOTTOM: #69a5fb 3px solid; POSITION: absolute; WIDTH: 250px; HEIGHT: 45px; OVERFLOW: hidden; TOP: 22px; PADDING-TOP: 5px; LEFT: 0px
+}
+#objetoInfo {
+	BORDER-BOTTOM: #69a5fb 3px solid; POSITION: absolute; MARGIN-TOP: 10px; WIDTH: 250px; HEIGHT: 345px; OVERFLOW: hidden; TOP: 72px; LEFT: 0px
+}
+#editorTrace {
+	POSITION: absolute; WIDTH: 250px; HEIGHT: 20px; TOP: 430px; LEFT: 0px
+}
+#editorTrace DIV {
+	TEXT-ALIGN: center; MARGIN-TOP: 3px; DISPLAY: none
+}
+#cubosHerramienta {
+	POSITION: absolute; BACKGROUND-COLOR: #5c94fc; WIDTH: 40px; HEIGHT: 40px; TOP: 5px
+}
+#bichosHerramienta {
+	POSITION: absolute; BACKGROUND-COLOR: #5c94fc; WIDTH: 40px; HEIGHT: 40px; TOP: 5px
+}
+#figurasHerramienta {
+	POSITION: absolute; BACKGROUND-COLOR: #5c94fc; WIDTH: 40px; HEIGHT: 40px; TOP: 5px
+}
+#agregarHerramienta {
+	POSITION: absolute; BACKGROUND-COLOR: #5c94fc; WIDTH: 40px; HEIGHT: 40px; TOP: 5px
+}
+#borrarHerramienta {
+	POSITION: absolute; BACKGROUND-COLOR: #5c94fc; WIDTH: 40px; HEIGHT: 40px; TOP: 5px
+}
+#cubosHerramienta {
+	LEFT: 42.5px
+}
+#bichosHerramienta {
+	LEFT: 105px
+}
+#figurasHerramienta {
+	LEFT: 167.5px
+}
+#editorScrollContenedor {
+	Z-INDEX: 5; POSITION: absolute; BACKGROUND-COLOR: #5a9cfb; WIDTH: 510px; DISPLAY: none; HEIGHT: 12px; OVERFLOW: hidden; TOP: 225px; LEFT: -385px
+}
+#editorScroll {
+	POSITION: absolute; BACKGROUND-COLOR: #1863e7; WIDTH: 100px; HEIGHT: 12px; OVERFLOW: hidden; TOP: 0px; CURSOR: w-resize; LEFT: 0px
+}
+#grillaYT {
+	Z-INDEX: 5; POSITION: absolute; BACKGROUND-COLOR: #5a9cfb; WIDTH: 16px; DISPLAY: none; HEIGHT: 450px; OVERFLOW: hidden; TOP: -225px; LEFT: -403px
+}
+#grillaYT LABEL {
+	BORDER-BOTTOM: #1863e7 1px solid; TEXT-ALIGN: center; WIDTH: 16px; FLOAT: left; HEIGHT: 26px; COLOR: #002387; OVERFLOW: hidden; BORDER-TOP: #1863e7 1px solid; CURSOR: pointer; PADDING-TOP: 4px
+}
+#grillaXT {
+	Z-INDEX: 5; POSITION: absolute; BACKGROUND-COLOR: #5a9cfb; WIDTH: 510px; DISPLAY: none; HEIGHT: 16px; OVERFLOW: hidden; TOP: -243px; LEFT: -385px
+}
+#grillaXT LABEL {
+	TEXT-ALIGN: center; BORDER-LEFT: #1863e7 1px solid; WIDTH: 30px; FLOAT: left; HEIGHT: 19px; COLOR: #002387; OVERFLOW: hidden; CURSOR: pointer; BORDER-RIGHT: #1863e7 1px solid; PADDING-TOP: 0px
+}
+#grillaXL {
+	POSITION: absolute; WIDTH: 0px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 0px; LEFT: 0px
+}
+#grillaY {
+	Z-INDEX: 20; POSITION: absolute; WIDTH: 100%; DISPLAY: none; HEIGHT: 100%; TOP: 0px; LEFT: 0px
+}
+#grillaY DIV {
+	POSITION: absolute; WIDTH: 100%; HEIGHT: 1px; OVERFLOW: hidden
+}
+#grillaX {
+	Z-INDEX: 20; POSITION: absolute; WIDTH: 100%; DISPLAY: none; HEIGHT: 100%; TOP: 0px; LEFT: 0px
+}
+#grillaX DIV {
+	POSITION: absolute; WIDTH: 1px; HEIGHT: 460px; OVERFLOW: hidden
+}
+#modificarMapaObjetos {
+	POSITION: absolute; TOP: 0px; LEFT: 0px
+}
+.objEventos {
+	Z-INDEX: 10; POSITION: absolute; WIDTH: 100%; HEIGHT: 100%; TOP: 0px; LEFT: 0px
+}
+.objetoInfoTxt {
+	POSITION: absolute; TEXT-ALIGN: center; WIDTH: 250px; HEIGHT: 17px; TOP: 0px; PADDING-TOP: 3px; LEFT: 0px
+}
+.objetoInfoD1 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 120px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 39px; LEFT: 0px
+}
+.objetoInfoD2 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 120px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 39px; LEFT: 0px
+}
+.objetoInfoD3 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 120px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 39px; LEFT: 0px
+}
+.objetoInfoD4 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 120px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 39px; LEFT: 0px
+}
+.objetoInfoD5 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 120px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 39px; LEFT: 0px
+}
+.objetoInfoD6 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 120px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 39px; LEFT: 0px
+}
+.objetoInfoD7 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 120px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 39px; LEFT: 0px
+}
+.objetoInfoD8 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 120px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 39px; LEFT: 0px
+}
+.objetoInfoD9 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 120px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 39px; LEFT: 0px
+}
+.objetoInfoD10 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 120px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 39px; LEFT: 0px
+}
+.objetoInfoD11 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 120px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 39px; LEFT: 0px
+}
+.objetoInfoD12 {
+	POSITION: absolute; TEXT-ALIGN: right; WIDTH: 120px; HEIGHT: 16px; OVERFLOW: hidden; TOP: 39px; LEFT: 0px
+}
+.objetoInfoD2 {
+	TEXT-ALIGN: left; HEIGHT: 25px; LEFT: 130px
+}
+.objetoInfoD4 {
+	TEXT-ALIGN: left; HEIGHT: 25px; LEFT: 130px
+}
+.objetoInfoD6 {
+	TEXT-ALIGN: left; HEIGHT: 25px; LEFT: 130px
+}
+.objetoInfoD8 {
+	TEXT-ALIGN: left; HEIGHT: 25px; LEFT: 130px
+}
+.objetoInfoD10 {
+	TEXT-ALIGN: left; HEIGHT: 25px; LEFT: 130px
+}
+.objetoInfoD12 {
+	TEXT-ALIGN: left; HEIGHT: 25px; LEFT: 130px
+}
+.objetoInfoD2 {
+	TOP: 36px
+}
+.objetoInfoD3 {
+	TOP: 74px
+}
+.objetoInfoD4 {
+	TOP: 71px
+}
+.objetoInfoD5 {
+	TOP: 109px
+}
+.objetoInfoD6 {
+	TOP: 106px
+}
+.objetoInfoD7 {
+	TOP: 144px
+}
+.objetoInfoD8 {
+	TOP: 141px
+}
+.objetoInfoD9 {
+	TOP: 179px
+}
+.objetoInfoD10 {
+	TOP: 176px
+}
+.objetoInfoD11 {
+	TOP: 214px
+}
+.objetoInfoD12 {
+	TOP: 211px
+}
