@@ -9,7 +9,10 @@
 
       console.log("Created activity: "+JSON.stringify(activity));
       document.getElementById("qr_code").src = activity.qrCodeUrl;
-      
+      document.getElementById("qr_code").style.width = document.getElementById("qr_code").style.height = 200+'px';
+
+      document.getElementById("qr_code").style.left = ((document.body.clientWidth/2) - (200/2))+'px';
+    
       activity.on('participantQuit', function(participant) {
         document.getElementById("qr_code").style.display='';
       });
