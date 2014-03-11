@@ -34,18 +34,18 @@ function actualizarX(){
   get("tiempoTxt").style.width = setX(160) + "px";
   get("tiempoNTxt").style.left = setX(300) + "px";
   get("tiempoNTxt").style.width = setX(160) + "px";
-  get( "jugar" ).style.left = setX( 175 ) + "px";
-  get( "jugar" ).style.width = setX( 220 ) + "px";
+  //get( "jugar" ).style.left = setX( 175 ) + "px";
+  //get( "jugar" ).style.width = setX( 220 ) + "px";
   get( "jugarInstrucciones" ).style.left = setX( 175 ) + "px";
   get( "jugarInstrucciones" ).style.width = setX( 220 ) + "px";
-  get( "cargarMapa" ).style.left = setX( 175 ) + "px";
-  get( "cargarMapa" ).style.width = setX( 220 ) + "px";
-  get( "crearMapa" ).style.left = setX( 175 ) + "px";
-  get( "crearMapa" ).style.width = setX( 220 ) + "px";
+ // get( "intructions1" ).style.left = setX( 175 ) + "px";
+  //get( "intructions1" ).style.width = setX( 220 ) + "px";
+  //get( "intructions2" ).style.left = setX( 175 ) + "px";
+  //get( "intructions2" ).style.width = setX( 220 ) + "px";
   get( "puntosTop" ).style.left = setX( 175 ) + "px";
   get( "puntosTop" ).style.width = setX( 220 ) + "px";
-  get( "hongoSeleccionar" ).style.left = setX( 145 ) + "px";
-  get( "hongoSeleccionar" ).style.width = setX( 16 ) + "px";
+  //get( "hongoSeleccionar" ).style.left = setX( 145 ) + "px";
+  //get( "hongoSeleccionar" ).style.width = setX( 16 ) + "px";
   
   if( !tunel ){
     get("mapax").style.left = setX(mapax * 32 + 1000) + "px";
@@ -162,12 +162,12 @@ function actualizarY(){
   get("mundoNTxt").style.top = setY(32) + "px";
   get("tiempoTxt").style.top = setY(16) + "px";
   get("tiempoNTxt").style.top = setY(32) + "px";
-  get( "jugar" ).style.bottom = setY( 180 ) + "px";
-  get( "jugarInstrucciones" ).style.bottom = setY( 235 ) + "px";
-  get( "cargarMapa" ).style.bottom = setY( 145 ) + "px";
-  get( "crearMapa" ).style.bottom = setY( 110 ) + "px";
-  get( "puntosTop" ).style.bottom = setY( 60 ) + "px";
-  get( "hongoSeleccionar" ).style.bottom = setY( menu[menuSeleccionado][1] ) + "px";
+  //get( "jugar" ).style.bottom = setY( 180 ) + "px";
+  //get( "jugarInstrucciones" ).style.bottom = setY( 235 ) + "px";
+  //get( "cargarMapa" ).style.bottom = setY( 145 ) + "px";
+  //get( "crearMapa" ).style.bottom = setY( 110 ) + "px";
+  //get( "puntosTop" ).style.bottom = setY( 60 ) + "px";
+  //get( "hongoSeleccionar" ).style.bottom = setY( menu[menuSeleccionado][1] ) + "px";
   get( "hongoSeleccionar" ).style.height = setY( 32 ) + "px";
   get( "gameOverTxt" ).style.bottom = setY( 195 ) + "px";
   

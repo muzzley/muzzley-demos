@@ -173,34 +173,38 @@ BODY {
   Z-INDEX: 1
 }
 #jugar {
-  POSITION: absolute; WIDTH: 220px; LEFT: 175px
+  POSITION: absolute; WIDTH: 350px; LEFT: 120px
 }
-#cargarMapa {
-  POSITION: absolute; WIDTH: 220px; LEFT: 175px
+#intructions0 {
+  POSITION: absolute; WIDTH: 350px; LEFT: 100px; BOTTOM: 230px
 }
-#crearMapa {
-  POSITION: absolute; WIDTH: 220px; LEFT: 175px
+#intructions1 {
+  POSITION: absolute; WIDTH: 350px; LEFT: 100px; BOTTOM: 200px
+}
+#intructions2 {
+  POSITION: absolute; WIDTH: 350px; LEFT: 100px; BOTTOM: 170px
+}
+#intructions3 {
+  POSITION: absolute; WIDTH: 350px; LEFT: 100px; BOTTOM: 140px
+}
+#intructions4 {
+  POSITION: absolute; WIDTH: 350px; LEFT: 100px; BOTTOM: 100px
 }
 #puntosTop {
-  POSITION: absolute; WIDTH: 220px; LEFT: 175px
+  POSITION: absolute; WIDTH: 350px; LEFT: 100px
 }
 #jugarInstrucciones {
-  POSITION: absolute; WIDTH: 220px; BOTTOM: 235px; LEFT: 175px
+  POSITION: absolute; WIDTH: 350px; BOTTOM: 235px; LEFT: 125px
 }
 #puntosTop {
   BOTTOM: 60px
 }
-#crearMapa {
-  BOTTOM: 110px
-}
-#cargarMapa {
-  BOTTOM: 145px
-}
+
 #jugar {
-  BOTTOM: 180px
+  BOTTOM: 280px
 }
 #hongoSeleccionar {
-  POSITION: absolute; WIDTH: 16px; BOTTOM: 180px; HEIGHT: 32px; LEFT: 145px
+  POSITION: absolute; WIDTH: 16px; BOTTOM: 280px; HEIGHT: 32px; LEFT: 90px
 }
 #contenedorE {
   POSITION: absolute; TOP: 250px; LEFT: 50%

@@ -114,13 +114,19 @@ function escribirTxt(n){
     case 10:
       get( "jugar" ).innerHTML = "";
       get( "jugar" ).appendChild(  escribir( "1 PLAYER GAME" ) );
-      get( "jugarInstrucciones" ).innerHTML = "";
-      get( "jugarInstrucciones" ).appendChild(  escribir( "USE DRAWPAD" ) );
-      //get( "cargarMapa" ).innerHTML = "";
-      //get( "cargarMapa" ).appendChild( escribir( "LOAD MAP" ) );
-      //get( "crearMapa" ).innerHTML = "";
-      //get( "crearMapa" ).appendChild( escribir( "MAP EDITOR" ) );
-      
+      //get( "jugarInstrucciones" ).innerHTML = "";
+      //get( "jugarInstrucciones" ).appendChild(  escribir( "USE DRAWPAD" ) );
+      get( "intructions0" ).innerHTML = "";
+      get( "intructions0" ).appendChild( escribir( "PRESS" ) );
+      get( "intructions1" ).innerHTML = "";
+      get( "intructions1" ).appendChild( escribir( "3 TO START" ) );
+      get( "intructions2" ).innerHTML = "";
+      get( "intructions2" ).appendChild( escribir( "2 TO RUN" ) );
+      get( "intructions3" ).innerHTML = "";
+      get( "intructions3" ).appendChild( escribir( "1 TO JUMP" ) );
+      get( "intructions4" ).innerHTML = "";
+      get( "intructions4" ).appendChild( escribir( "JOYSTICK TO DIRECTIONS" ) );
+     
       var puntosTN = String( Math.ceil( puntosTop ) );
       for( i = puntosTN.length; i < 6; i++ ){ 
         puntosTN = "0" + puntosTN;

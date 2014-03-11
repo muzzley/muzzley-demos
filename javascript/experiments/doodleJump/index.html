@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+
+  <title>Jump</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="http://cdn.muzzley.com/libraries/js/muzzley-client-0.3.5.min.js"></script>
+</head>
+<body>
+  
+  <div class="container">
+    <canvas id="canvas">
+      Aww, your browser doesn't support HTML5!
+    </canvas>
+
+    <div id="mainMenu">
+      <h1>doodle jump</h1>
+      <h3>using HTML5,</h3>
+      <h3>...by <a href="http://twitter.com/solitarydesigns/" target="_blank">Kushagra Agarwal</a></h3>
+      <h3>and <a href="http://cssdeck.com" target="_blank">CSSDeck.</a></h3>
+      <h3>Controlled by <a href="//muzzley.com" target="_blank">muzzley</a></h3>
+      <div id="instructions">Press start and move your phone to control the doodle hero</div>
+      <img id="qrCodeImg" ></img>
+    </div>
+    
+    <div id="gameOverMenu">
+      <h1>game over!</h1>
+      <h3 id="go_score">you scored 0 points</h3>
+      <div id="text" style="bottom: 30px">Press restart to play again</div>
+    </div>
+    
+    
+    <!-- Preloading image ;) -->
+    <img id="sprite" src="http://i.imgur.com/2WEhF.png"/>
+
+    <div id="scoreBoard">
+      <p id="score">0</p>
+    </div>
+
+  </div>
+
+  <script src="doodle.js"></script>
+  <script src="muzzjump.js"></script>
+</body>
+</html> 
