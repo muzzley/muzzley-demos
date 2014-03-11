@@ -8,7 +8,7 @@ body {
 }
 
 .container {
-  height: 552px;
+  height: 500px;
   width: 422px;
   position: relative;
   margin: 20px auto 0; 
@@ -16,7 +16,7 @@ body {
 }
 
 canvas {
-  height: 552px;
+  height: 500px;
   width: 422px;
   display: block;
   background: url(http://i.imgur.com/Y0BMP.png) top left;
