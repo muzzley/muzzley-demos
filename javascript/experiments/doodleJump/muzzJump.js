@@ -15,17 +15,14 @@ muzzley.connectApp('b455f7c8521672d8', function(err, activity){
 
   qrCodeImg.src = activity.qrCodeUrl ;
 
-  console.log('##Activity: activityCreated');
-  console.log(activity);
   activity.on('participantQuit', function(participant){
-    console.log('##Activity: "EVENT" participantQuit');
+    //console.log('##Activity: "EVENT" participantQuit');
   });
 
   activity.on('participantJoin', function(participant){
     qrCodeImg.style.display = "none";
     document.getElementById('instructions').style.display = 'block';
-    console.log('##Activity: participantJoined');
-    console.log('##Activity: sending changeWidget');
+    //console.log('##Activity: participantJoined');
     var gamePad = {
       widget: "webview", 
       params: {
@@ -45,17 +42,15 @@ muzzley.connectApp('b455f7c8521672d8', function(err, activity){
     };
     participant.changeWidget(gamePad, function (err) {
       if (err) return console.log("err: " + err );
-      console.log('##Activity: recived changeWidget okay');
+     // console.log('##Activity: recived changeWidget okay');
 
       participant.on('quit', function (action) {
         qrCodeImg.style.display = "block";
         // Action object represents the participants interaction
-        console.log('quit');
-        //console.log(action);
+        //console.log('quit');
       });
 
       participant.on('signalingMessage', function(type, message, cb) {
-          console.log(type + " -- " + JSON.stringify(message));
           if(type === 'start'){
             init();
           }else if(type === 'restart'){
@@ -73,44 +68,12 @@ muzzley.connectApp('b455f7c8521672d8', function(err, activity){
         roll = action.v.roll;
 
         if(roll>5 && roll<175){
-          /*if(roll > oldRoll){
-            window.phone.rollDireita();
-          }else{
-            window.phone.rollEsquerda();
-          }*/
           window.phone.rollDireita();
         }else if(roll>275 && roll<355){
-          /*if(roll > oldRoll){
-            window.phone.rollEsquerda();
-          }else{
-            window.phone.rollDireita();
-          }*/
           window.phone.rollEsquerda();
         }
         
         oldRoll = roll;
-
-        //console.log(roll);
-        /*
-        if (roll > 0 && roll <= 45){
-          //console.log('direita slow');
-          window.phone.rollDireita();
-        }
-
-        if (roll > 45 && roll <= 90){
-          //console.log('direita rapido');
-          //window.phone.rollDireita();
-        }
-
-        if (roll > 330 && roll <= 345){
-          //console.log('esquerda slow');
-          window.phone.rollEsquerda();
-        }
-
-        if (roll > 250 && roll <= 330){
-          //console.log('esquerda rapido');
-          //window.phone.rollEsquerda();
-        }*/
 
         if (roll > 345 || roll < 10  || roll === 0 ){
           //console.log('none');
